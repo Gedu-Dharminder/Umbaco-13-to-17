@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rewrite>
+    <rewriteMaps>
+        <rewriteMap name="StaticRedirects">
+            
+        </rewriteMap>
+ 
+        <rewriteMap name="TempRedirects">
+                        
+        </rewriteMap>
+    </rewriteMaps>
+ 
+    <rules>
+        <rule name="Robots TXT" stopProcessing="true">
+            <match url="robots.txt" />
+            <action type="Rewrite" url="robots-txt" />
+        </rule>
+        <rule name="Sitemap XML" stopProcessing="true">
+            <match url="sitemap.xml" />
+            <action type="Rewrite" url="sitemap-xml" />
+        </rule>
+        <rule name="Rewrite Rule 1 for StaticRedirects" stopProcessing="true">
+            <match url=".*" />
+            <conditions>
+                <add input="{StaticRedirects:{REQUEST_URI}}" pattern="(.+)" />
+            </conditions>
+            <action type="Redirect" url="{C:1}" appendQueryString="False" redirectType="Permanent"/>
+        </rule>
+        <rule name="Rewrite Rule 1 for TempRedirects" stopProcessing="true">
+            <match url=".*" />
+            <conditions>
+                <add input="{TempRedirects:{REQUEST_URI}}" pattern="(.+)" />
+            </conditions>
+            <action type="Redirect" url="{C:1}" appendQueryString="False" redirectType="Temporary"/>
+        </rule>
+        <rule name="Redirect to HTTPS without www" stopProcessing="true">
+            <match url="(.*)" />
+            <conditions logicalGrouping="MatchAll">
+                <add input="{HTTPS}" pattern="^OFF$" />
+                <add input="{HTTP_HOST}" pattern="^(www\.)?(.*)$" />
+            </conditions>
+            <action type="Redirect" url="https://{C:2}/{R:1}" redirectType="Permanent" />
+        </rule>
+        <rule name="Special case for HTTPS with www" stopProcessing="true">
+            <match url="(.*)" />
+            <conditions logicalGrouping="MatchAll">
+                <add input="{HTTPS}" pattern="^ON$" />
+                <add input="{HTTP_HOST}" pattern="^(www\.)(.*)$" />
+            </conditions>
+            <action type="Redirect" url="https://{C:2}/{R:1}" redirectType="Permanent" />
+        </rule>
+    </rules>
+</rewrite>
