@@ -1,0 +1,184 @@
+﻿@inherits Umbraco.Cms.Web.Common.Macros.PartialViewMacroPage
+ 
+@using Umbraco.Cms.Core.Routing
+@inject IPublishedUrlProvider PublishedUrlProvider
+ 
+@{
+var currentPageName = Model.Content.Name;
+    var parentPage = Model.Content.AncestorOrSelf(1)
+        .Children()
+        .FirstOrDefault(x => x.Name == currentPageName);
+ 
+    var programmes = parentPage?.Children()
+        .Where(x => x.IsPublished())
+        .OrderByDescending(x => x.CreateDate) ?? Enumerable.Empty<IPublishedContent>();
+ 
+    int initialItems = 6; // first visible items
+}
+ 
+<div class="container">
+<div class="row g-4" id="newsContainer">
+        @{
+            int index = 0;
+            foreach (var programme in programmes)
+            {
+                var courseTitle = programme.Value<string>("courseTitle");
+                if (string.IsNullOrWhiteSpace(courseTitle))
+                {
+                    courseTitle = programme.Name;
+                }
+ 
+                // Clean page summary (remove empty tags & trim spaces)
+                var pageSummaryRaw = programme.Value<string>("pageSummary") ?? "";
+                var pageSummary = System.Text.RegularExpressions.Regex.Replace(pageSummaryRaw, @"<p>\s*</p>", "").Trim();
+ 
+                var imgUrl = programme.Value<IPublishedContent>("pageListingImage")?.Url(PublishedUrlProvider) ?? "/images/placeholder.jpg";
+                var publishDate = programme.CreateDate;
+ 
+                <div class="col-lg-4 col-md-6 news-item @(index >= initialItems ? "d-none" : "")">
+<div class="event-card h-100 d-flex flex-column text-center">
+<div class="event-image">
+<img src="@imgUrl" alt="@courseTitle" class="img-fluid w-100">
+</div>
+<div class="event-date">@publishDate.ToString("dd MMM yyyy")</div>
+<div class="event-content flex-grow-1 d-flex flex-column">
+<h2 class="fw-bold">@courseTitle</h2>
+                            @if (!string.IsNullOrWhiteSpace(pageSummary))
+                            {
+<p class="event-summary">@Html.Raw(pageSummary)</p>
+                            }
+<div class="read_more">
+<a href="@programme.Url(PublishedUrlProvider)" class="btn readmore-btn">Read more</a>
+</div>
+</div>
+</div>
+</div>
+ 
+                index++;
+            }
+        }
+</div>
+ 
+    <div class="text-center mt-4" id="loadMoreWrapper">
+<button id="loadMoreBtn" class="btn loadmore-btn">LOAD MORE</button>
+</div>
+</div>
+ 
+<style>
+/* Card Styling */
+.event-card {
+    background: #fff;
+}
+ 
+.event-image img {
+    display: block;
+    height: 240px;
+    object-fit: cover;
+}
+ 
+.event-date {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #918360;
+}
+ 
+.event-content h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    margin-top: 10px;
+    font-weight: 500 !important;
+}
+ 
+.event-summary {
+    font-size: 14px;
+    color: #555;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0; /* remove default p spacing */
+}
+ 
+.readmore-btn {
+    background: transparent;
+    border: 1px solid #d5b37d;
+    color: #d5b37d;
+    font-size: 14px;
+    padding: 6px 18px;
+    transition: all 0.3s ease;
+}
+.readmore-btn:hover {
+    background: #d5b37d;
+    color: #fff;
+}
+ 
+.loadmore-btn {
+    background: #d5b37d;
+    color: #fff;
+    border: none;
+    padding: 8px 24px;
+    text-transform: uppercase;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.loadmore-btn:hover {
+    background: #d5b37d;
+}
+.read_more {
+    margin-top: -20px;
+}
+ 
+/* Responsive */
+@@media (max-width: 992px) {
+    .event-image img {
+        height: 200px;
+    }
+    .event-content h2 {
+        font-size: 22px;
+    }
+}
+ 
+@@media (max-width: 768px) {
+    .event-image img {
+        height: 180px;
+    }
+    .event-content h2 {
+        font-size: 20px;
+    }
+}
+ 
+@@media (max-width: 576px) {
+    .event-image img {
+        height: 160px;
+    }
+    .event-content h2 {
+        font-size: 18px;
+    }
+}
+</style>
+ 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var loadMoreBtn = document.getElementById("loadMoreBtn");
+    var newsContainer = document.getElementById("newsContainer");
+    var showCount = 3; // number of items to show per click
+ 
+    if (!loadMoreBtn) return;
+ 
+    loadMoreBtn.addEventListener("click", function () {
+        var hidden = newsContainer.querySelectorAll(".news-item.d-none");
+        for (var i = 0; i < showCount && i < hidden.length; i++) {
+            hidden[i].classList.remove("d-none");
+        }
+        if (newsContainer.querySelectorAll(".news-item.d-none").length === 0) {
+            document.getElementById("loadMoreWrapper").style.display = "none";
+        }
+    });
+ 
+    // Hide button only if no hidden items
+    if (newsContainer.querySelectorAll(".news-item.d-none").length === 0) {
+        document.getElementById("loadMoreWrapper").style.display = "none";
+    }
+});
+</script>

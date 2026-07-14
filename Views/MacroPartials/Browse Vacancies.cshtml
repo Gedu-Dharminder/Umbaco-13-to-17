@@ -1,0 +1,540 @@
+﻿@inherits Umbraco.Cms.Web.Common.Macros.PartialViewMacroPage
+@using USNSiteBuilder.Core.Models;
+@using Umbraco.Cms.Core.Routing
+@inject IPublishedUrlProvider PublishedUrlProvider
+
+@{
+    var parentPage = Model.Content.AncestorOrSelf(1)
+        .Children()
+        .FirstOrDefault(x => x.Name == "Careers test");
+
+    var programmes = parentPage?.Children()
+        .Where(x => x.IsPublished())
+        .OrderBy(x =>  x.Name) ?? Enumerable.Empty<IPublishedContent>();
+
+}
+<div class="main-filter" id="main-filter-id">
+    <div class="custom-filter mb-md-4">
+    <div class="row g-1 align-items-end justify-content-between">
+        <!-- Search Title -->
+        <div class="col-lg-6 search-wrapper">
+            <span class="search-icon"><img src="/media/yucbpyuy/searchicon.svg" data-uw-rm-alt-original="" role="presentation" alt="" data-uw-rm-alt="SVG"></span>
+            <input type="text" id="searchTitle" class="form-control" placeholder="Search for jobs..">
+        </div>
+        <!-- Location Filter -->
+        <div class="col-md-4 col-lg-2">
+            <p class="filter-heading">Location</p>
+            <div class="select-wrapper">
+                <span class="dropdownIcon"><img src="/media/n2tfigt0/selectdropdown.svg"/></span>
+            <select id="filterLocation" class="form-control">
+                <option value="">All Locations</option>
+                @foreach (var loc in programmes
+                    .Select(x => x.Value<string>("location"))
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Distinct())
+                {
+                    <option value="@loc">@loc</option>
+                }
+            </select>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-2">
+            <p class="filter-heading">Department</p>
+            <div class="select-wrapper">
+                <span class="dropdownIcon"><img src="/media/n2tfigt0/selectdropdown.svg"/></span>
+            <select id="filterDepartment" class="form-control">
+                <option value="">All Departments</option>
+                @foreach (var depart in programmes
+                    .Select(x => x.Value<string>("pageListingSecondaryHeading"))
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Distinct())
+                {
+                    <option value="@depart">@depart</option>
+                }
+            </select>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-1" style="width: 121px;">
+            <button class="filter-custom-btn mb-0" id="find-job">View Jobs</button>
+        </div>
+    </div>
+</div>
+<div class="d-flex g-4 flex-wrap" id="newsContainer">
+   @{
+        int index = 0;
+        foreach (var programme in programmes)
+        {
+            var courseTitle = programme.Value<string>("pageListingHeading");
+            if (courseTitle == null)
+            {
+                courseTitle = programme.Name;
+            }
+
+            var pageSummaryRaw = programme.Value<string>("pageSummary") ?? "";
+            var pageSummary = System.Text.RegularExpressions.Regex
+                .Replace(pageSummaryRaw, @"<p>\s*</p>", "")
+                .Trim();
+
+            var location = programme.Value<string>("location") ?? "";
+            var jobtype = programme.Value<string>("pageListingSecondaryHeading") ?? "";
+            var links = programme.Value<IEnumerable<SiteBuilderMultiUrlPicker>>("cTAButtons");
+    
+
+            <div class="col-lg-12 col-md-12 news-item mt-0 " 
+                data-title="@courseTitle.ToLower()"
+                data-location="@location.ToLower()"
+                data-department="@jobtype.ToLower()"
+            >
+                <div class="event-card h-100 d-flex justify-content-between">
+                    <div class="col-lg-3 col-xl-3">
+                        <h2 class="title-heading">@courseTitle</h2>
+                        <div class="d-flex sub-headings">
+                        <p class="title-tag">@jobtype</p>
+                        <p class="title-tag d-flex"><span class="location-icon me-1"><img src="/media/utedd3bz/joblocationicon.svg"/></span>@location</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-7 col-xxl-8 event-summary px-2">
+                        @if (!string.IsNullOrWhiteSpace(pageSummary))
+                        {
+                            @Html.Raw(pageSummary)
+                        }
+                    </div>
+                    <div class="CtaButtons">
+                    
+                    @if (!string.IsNullOrWhiteSpace(location) && 
+                         location.Trim().Equals("Dubai Sports City", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Static Apply Now button
+                        <a class="filter-custom-btn" 
+                           href="https://www.tes.com/jobs/employer/queen-elizabeth-s-school-dubai-sports-city-1280219" 
+                           target="_blank">
+                            Apply Now
+                        </a>
+                    
+                        // Remaining dynamic links
+                        @if (links?.Any() == true)
+                        {
+                            foreach (var link in links.Skip(1))
+                            {
+                                <a class="filter-custom-btn"
+                                   href="@link.link.LinkUrl"
+                                   @Html.Raw(link.rel)
+                                   @Html.Raw(link.link.LinkTarget)
+                                   @Html.Raw(link.link.LinkTitle)>
+                                   @link.link.LinkText
+                                </a>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Normal: show all buttons
+                        @if (links?.Any() == true)
+                        {
+                            foreach (var link in links)
+                            {
+                                <a class="filter-custom-btn"
+                                   href="@link.link.LinkUrl"
+                                   @Html.Raw(link.rel)
+                                   @Html.Raw(link.link.LinkTarget)
+                                   @Html.Raw(link.link.LinkTitle)>
+                                   @link.link.LinkText
+                                </a>
+                            }
+                        }
+                    }
+
+                    </div>
+                </div>
+            </div>
+            index++;
+        }
+    }
+</div>
+</div>
+
+<style>
+.main-filter{
+    position: relative;
+}
+.filter-heading{
+    font-size: 14px;
+    margin: 0;
+    color: #000;
+    white-space: nowrap;
+}
+.sub-headings{
+    gap: 10px;
+}
+.news-item {
+    margin: 30px 0px 0px 0px !important;
+    border-bottom: 1px solid #E1E4ED;
+    padding: 0px 0px 30px 0px;
+}
+.news-item:last-child{
+    border-bottom: none;
+}
+.event-card {
+    background: #fff;
+}
+.event-card h2 { font-size: 24px; margin: 10px 0 20px 0; }
+
+.event-summary {
+    font-size: 14px;
+    color: #00142E99;
+    margin: 0;
+}
+.event-summary p{
+    margin: 0;
+}
+input#searchTitle{
+    border: none;
+    background: #E7EBF1;
+    border-radius: 5px;
+    padding: 0px 0 0 50px;
+    min-height: 38px;
+    position: relative;
+}
+
+select#filterLocation, select#filterDepartment{
+    border: 1px solid #D0D7DD;
+    border-radius: 5px;
+    min-height: 38px;
+    padding-right: 24px;
+    font-size: 14px;
+}
+
+.custom-filter .form-control:focus-visible{
+    outline: none !important;
+}
+
+.search-wrapper{
+    position: relative;
+}
+
+span.search-icon {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    top: 50%;
+    left: 12px;
+    z-index: 9;
+    transform: translateY(-50%);
+    display: flex;
+}
+span.search-icon img{
+    width: 100%;
+}
+
+.location-icon{
+    width: 10px;
+    display: flex;
+}
+.title-tag{
+    font-size: 13px;
+    padding: 2px 8px;
+    margin: 0;
+    background:#E7EBF1;
+    color:#4F5665;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.filter-custom-btn {
+    font-size: 14px;
+    font-family: 'Soleil-Regular',Soleil-Regular;
+    padding: 8px 12px;
+    color: #00142E !important;
+    background: #CEA666;
+    border: 1px solid #CEA666;
+    text-decoration: none !important;
+    width: 100%;
+    display: block;
+    margin-bottom: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.filter-custom-btn:hover{
+    opacity: 0.85;
+}
+.filter-custom-btn:nth-child(2){
+    color: #85754E !important;
+    background: #fff;
+}
+.filter-custom-btn:nth-child(2):hover{
+    opacity: 0.6;
+}
+.select-wrapper{
+    position: relative;
+    padding-right: 1px;
+}
+.dropdownIcon{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: end;
+}
+#pagination {
+    display: flex;
+    gap: 6px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+#pagination .page-btn {
+    padding: 6px 12px;
+    border: 1px solid #333;
+    background: white;
+    cursor: pointer;
+    color: #000;
+}
+
+#pagination .page-btn.active {
+    background: #333;
+    color: #fff;
+}
+
+#pagination .page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+#item-count{
+    margin-top: 10px;
+    text-align: right;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(0, 20, 46);
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+}
+/* Responsive */
+@@media (min-width: 1200px) {
+    .col-xl-3 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}
+@@media (max-width: 992px) {
+    .event-content h2 { 
+        font-size: 22px; 
+    }
+    select#filterLocation, select#filterDepartment{
+        font-size: 12px;
+    }
+    .event-card{
+        flex-wrap: wrap;
+    }
+}
+@@media (max-width: 768px) {
+.news-item {
+    margin: 10px 0px 0px 0px !important;
+    padding: 0px 0px 10px 0px;
+    }
+    .event-content h2 { 
+        font-size: 20px; 
+    }
+    .event-summary {
+        font-size: 12px;
+    }
+    .CtaButtons{
+        display: flex;
+        gap: 10px;
+    }
+    #item-count{
+    position: relative; 
+    text-align: left;
+    }
+}
+@@media (max-width: 576px) {
+    .event-content h2 { 
+        font-size: 18px; 
+    }
+    .filter-custom-btn{
+        margin-top: 15px;
+    }
+    .event-summary {
+    margin-top: 15px;
+    }
+}
+</style>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const searchTitle = document.getElementById("searchTitle");
+    const filterLocation = document.getElementById("filterLocation");
+    const filterDepartment = document.getElementById("filterDepartment");
+    const items = Array.from(document.querySelectorAll(".news-item"));
+    const button = document.getElementById("find-job");
+    const newsContainer = document.getElementById("newsContainer");
+
+    const pageSize = 15;
+    let currentPage = 1;
+
+    function scrollToList() {
+    const offset = 280;
+    const y =
+        newsContainer.getBoundingClientRect().top +
+        window.pageYOffset -
+        offset;
+
+    window.scrollTo({
+        top: y,
+        behavior: "smooth"
+    });
+}
+
+    // ---------------- UPDATE COUNT ----------------
+    function updateCount() {
+        const total = items.length;
+        const visible = items.filter(i => !i.classList.contains("d-none")).length;
+
+        const countBox = document.getElementById("item-count");
+        countBox.textContent = `Showing ${visible} of ${total} jobs`;
+    }
+
+    // ---------------- SHOW PAGE ----------------
+    function showPage(page) {
+        currentPage = page;
+
+        const visible = items.filter(i => !i.classList.contains("d-none"));
+
+        visible.forEach((item, idx) => {
+            if (idx >= (page - 1) * pageSize && idx < page * pageSize) {
+                item.style.display = "flex";
+            } else {
+                item.style.display = "none";
+            }
+        });
+
+        renderPagination(visible.length);
+        updateCount();
+    }
+
+    // ---------------- PAGINATION RENDER ----------------
+    function renderPagination(totalVisible) {
+        const totalPages = Math.ceil(totalVisible / pageSize);
+        const container = document.getElementById("pagination");
+
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        // PREV BUTTON
+        const prevBtn = document.createElement("button");
+        prevBtn.textContent = "Prev";
+        prevBtn.className = "page-btn";
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.addEventListener("click", () => {
+            showPage(currentPage - 1);
+            scrollToList();
+        });
+        container.appendChild(prevBtn);
+
+        // PAGE NUMBERS
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement("button");
+            btn.textContent = i;
+            btn.className = "page-btn";
+
+            if (i === currentPage) btn.classList.add("active");
+
+            btn.addEventListener("click", () => {
+                showPage(i);
+                scrollToList();
+            });
+
+            container.appendChild(btn);
+        }
+
+        // NEXT BUTTON
+        const nextBtn = document.createElement("button");
+        nextBtn.textContent = "Next";
+        nextBtn.className = "page-btn";
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.addEventListener("click", () => {
+            showPage(currentPage + 1);
+            scrollToList();
+        });
+        container.appendChild(nextBtn);
+    }
+
+    // ---------------- APPLY FILTERS ----------------
+    function applyFilters() {
+        const titleVal = searchTitle.value.toLowerCase();
+        const locVal = filterLocation.value.toLowerCase();
+        const deptVal = filterDepartment.value.toLowerCase();
+
+        items.forEach(item => {
+            const t = item.dataset.title;
+            const l = item.dataset.location;
+            const d = item.dataset.department;
+
+            const matchTitle = t.includes(titleVal);
+            const matchLoc = locVal === "" || l === locVal;
+            const matchDept = deptVal === "" || d === deptVal;
+
+            if (matchTitle && matchLoc && matchDept) {
+                item.classList.remove("d-none");
+            } else {
+                item.classList.add("d-none");
+            }
+        });
+
+        const visibleCount = items.filter(i => !i.classList.contains("d-none")).length;
+
+        // Show or hide "No job found" message
+        let msg = document.getElementById("no-job-msg");
+
+        if (!msg) {
+            msg = document.createElement("div");
+            msg.id = "no-job-msg";
+            msg.style.marginTop = "20px";
+            msg.style.fontWeight = "600";
+            msg.style.fontSize = "18px";
+            msg.style.color = "#00142e";
+            msg.textContent = "No job found";
+            newsContainer.after(msg);
+        }
+
+        msg.style.display = visibleCount === 0 ? "block" : "none";
+
+        const pagination = document.getElementById("pagination");
+        if (pagination) {
+            pagination.style.display = visibleCount === 0 ? "none" : "flex";
+        }
+
+        showPage(1);
+        updateCount();
+        scrollToList();
+    }
+
+    button.addEventListener("click", applyFilters);
+
+    // ---------------- CREATE PAGINATION ----------------
+    const paginationDiv = document.createElement("div");
+    paginationDiv.id = "pagination";
+    paginationDiv.style.marginTop = "30px";
+    newsContainer.after(paginationDiv);
+
+    // ---------------- CREATE ITEM COUNT BOX ----------------
+    const countDiv = document.createElement("div");
+    countDiv.id = "item-count";
+    paginationDiv.after(countDiv);
+
+    // Initial load
+    showPage(1);
+    updateCount();
+});
+</script>
+
+
+
+
