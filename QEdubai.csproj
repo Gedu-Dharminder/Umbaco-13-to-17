@@ -30,4 +30,11 @@
     <RazorCompileOnPublish>false</RazorCompileOnPublish>
   </PropertyGroup>
 
+  <!-- Ensure IISUrlRewrite.xml is included in publish output -->
+  <ItemGroup>
+  <Content Include="IISUrlRewrite.xml">
+    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+  </Content>
+  </ItemGroup>
+
 </Project>
