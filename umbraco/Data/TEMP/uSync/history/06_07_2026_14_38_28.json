@@ -1,0 +1,2566 @@
+{
+  "actions": [
+    {
+      "handlerAlias": "DataTypeHandler",
+      "success": true,
+      "itemType": "IDataType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\DataTypes\\USNContentPicker.config",
+      "name": "USN Content Picker",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Config",
+          "path": "Configuration",
+          "oldValue": "{\r\n  \"Filter\": \"USNBlogCategories,USNBlogPostsFolder,USNBlogCategoryPage,USNBlogLandingPage,USNBlogPost,USNHomepage,USNPage,USNSearchResultsPage\",\r\n  \"IgnoreUserStartNodes\": false,\r\n  \"MaxNumber\": 1,\r\n  \"MinNumber\": 0,\r\n  \"ShowOpen\": true,\r\n  \"TreeSource\": {\r\n    \"dynamicRoot\": null,\r\n    \"id\": null,\r\n    \"query\": null,\r\n    \"type\": \"content\"\r\n  }\r\n}",
+          "newValue": "{\r\n  \"Filter\": \"USNBlogCategories,USNBlogCategoryPage,USNBlogLandingPage,USNBlogPost,USNBlogPostsFolder,USNHomepage,USNPage,USNSearchResultsPage,USNListingFilterPage,USNListPage,USNListingPage,USNProductPage,USNShopPage\",\r\n  \"IgnoreUserStartNodes\": false,\r\n  \"MaxNumber\": 1,\r\n  \"MinNumber\": 0,\r\n  \"ShowOpen\": true,\r\n  \"TreeSource\": {\r\n    \"dynamicRoot\": null,\r\n    \"id\": null,\r\n    \"query\": null,\r\n    \"type\": \"content\"\r\n  }\r\n}",
+          "change": "Update"
+        }
+      ],
+      "key": "ee540134-4396-4f41-9ea0-9b078583d61e"
+    },
+    {
+      "handlerAlias": "DataTypeHandler",
+      "success": true,
+      "itemType": "IDataType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\DataTypes\\USNRelatedContentPicker.config",
+      "name": "USN Related Content Picker",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Config",
+          "path": "Configuration",
+          "oldValue": "{\r\n  \"Filter\": \"USNPage,USNBlogLandingPage,USNSearchResultsPage,USNBlogPost,USNListingPage,USNListPage,USNShopPage,USNProductPage,USNBlogCategoryPage,USNListingFilterPage\",\r\n  \"IgnoreUserStartNodes\": false,\r\n  \"MaxNumber\": 0,\r\n  \"MinNumber\": 0,\r\n  \"ShowOpen\": true,\r\n  \"TreeSource\": {\r\n    \"dynamicRoot\": null,\r\n    \"id\": null,\r\n    \"query\": null,\r\n    \"type\": \"content\"\r\n  }\r\n}",
+          "newValue": "{\r\n  \"Filter\": \"USNBlogCategoryPage,USNBlogLandingPage,USNBlogPost,USNListingFilterPage,USNListingPage,USNPage,USNListPage,USNProductPage,USNSearchResultsPage,USNShopPage,USNHomepage\",\r\n  \"IgnoreUserStartNodes\": false,\r\n  \"MaxNumber\": 0,\r\n  \"MinNumber\": 0,\r\n  \"ShowOpen\": true,\r\n  \"TreeSource\": {\r\n    \"dynamicRoot\": null,\r\n    \"id\": null,\r\n    \"query\": null,\r\n    \"type\": \"content\"\r\n  }\r\n}",
+          "change": "Update"
+        }
+      ],
+      "key": "d747c687-a174-42a7-bfe1-885728599227"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usnblogpost.config",
+      "name": "Blog Post",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Navigation",
+          "path": "Tabs/Navigation",
+          "oldValue": "",
+          "newValue": "Navigation",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "htmlSitemapLinkText/Key",
+          "oldValue": "f6cd1041-70c6-4dff-9c70-a2f9e3793180",
+          "newValue": "29de6295-6464-4f26-80c7-2e72cba36aae",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "htmlSitemapLinkText/Name",
+          "oldValue": "(Blank)",
+          "newValue": "HTML sitemap link text",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "htmlSitemapLinkText/Description",
+          "oldValue": "(Blank)",
+          "newValue": "Page name will be used by default if nothing is entered.",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "htmlSitemapLinkText/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "htmlSitemapLinkText/SortOrder",
+          "oldValue": "0",
+          "newValue": "5",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "htmlSitemapLinkText/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "htmlSitemapLinkText/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Variations",
+          "path": "Property/Variations",
+          "oldValue": "Nothing",
+          "newValue": "Culture",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "htmlSitemapLinkText",
+          "path": "htmlSitemapLinkText",
+          "oldValue": "",
+          "newValue": "HTML sitemap link text",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "secondaryHeading/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "secondaryHeading/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "summaryInstructions/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "readingTime",
+          "path": "Property/readingTime",
+          "oldValue": "",
+          "newValue": "",
+          "change": "Delete"
+        },
+        {
+          "success": true,
+          "name": "tags",
+          "path": "Property/tags",
+          "oldValue": "",
+          "newValue": "",
+          "change": "Delete"
+        },
+        {
+          "success": true,
+          "name": "fAQs",
+          "path": "Property/fAQs",
+          "oldValue": "",
+          "newValue": "",
+          "change": "Delete"
+        },
+        {
+          "success": true,
+          "name": "DefaultTemplate",
+          "path": "DefaultTemplate",
+          "oldValue": "BlogPage",
+          "newValue": "USNBlogPage",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "AllowedTemplates",
+          "path": "AllowedTemplates",
+          "oldValue": "BlogPage,USNBlogPage",
+          "newValue": "USNBlogPage",
+          "change": "Update"
+        }
+      ],
+      "key": "5ada874c-085b-43c7-b50d-79a14ea022d7"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usnglobalsettings.config",
+      "name": "Settings",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Description",
+          "path": "afterOpeningBodyScripts/Description",
+          "oldValue": "Anything you enter here will be placed after the opening &lt;body&gt; tag on every page of your website.",
+          "newValue": "Anything you enter here will be placed after the opening &lt;body&gt; tag on every page of your website.  If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "beforeClosingBodyScripts/Description",
+          "oldValue": "Anything you enter here will be placed before the closing &lt;/body&gt; tag on every page of your website.",
+          "newValue": "Anything you enter here will be placed before the closing &lt;/body&gt; tag on every page of your website.  If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "headerOpeningScripts/Description",
+          "oldValue": "Anything you enter here will be placed after the opening &lt;head&gt; tag on every page of your website.",
+          "newValue": "Anything you enter here will be placed after the opening &lt;head&gt; tag on every page of your website.  If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "headerScripts/Description",
+          "oldValue": "Anything you enter here will be placed before the closing &lt;/head&gt; tag on every page of your website.",
+          "newValue": "Anything you enter here will be placed before the closing &lt;/head&gt; tag on every page of your website.  If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.",
+          "change": "Update"
+        }
+      ],
+      "key": "b4419f5c-5e9f-4112-8834-d00c7362cecb"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usnpage.config",
+      "name": "Page",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "summaryInstructions/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "location",
+          "path": "Property/location",
+          "oldValue": "",
+          "newValue": "",
+          "change": "Delete"
+        },
+        {
+          "success": true,
+          "name": "cTAButtons",
+          "path": "Property/cTAButtons",
+          "oldValue": "",
+          "newValue": "",
+          "change": "Delete"
+        }
+      ],
+      "key": "e611d8aa-2c70-400a-bf09-813e26e7d715"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usnshoppage.config",
+      "name": "Shop Page",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "displayFreeTextSearch/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "hideSubNavigation/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Alias",
+          "path": "htmlSitemapLinkText/Alias",
+          "oldValue": "hTMLSitemapLinkText",
+          "newValue": "htmlSitemapLinkText",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "htmlSitemapLinkText/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "sortOptions/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "subNavigationLinkText/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "summaryInstructions/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        }
+      ],
+      "key": "c5c2faf6-0882-470d-af05-bec4f4c4567c"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usnsitemapxml.config",
+      "name": "Sitemap XML",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "AllowAtRoot",
+          "path": "",
+          "oldValue": "True",
+          "newValue": "False",
+          "change": "Update"
+        }
+      ],
+      "key": "c3360d93-b7c7-4d40-8136-f2c8ecb91a1a"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usnwebsiteconfigurationsection.config",
+      "name": "Global Section",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "AllowAtRoot",
+          "path": "",
+          "oldValue": "True",
+          "newValue": "False",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "hideContentEditLink/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        }
+      ],
+      "key": "fecab5e1-26e6-48d1-8118-9c1b5b9bd158"
+    },
+    {
+      "handlerAlias": "uSync.BackOffice.SyncHandlers.Handlers.ContentTypeHandler",
+      "success": false,
+      "itemType": "IContentType",
+      "message": "ContentTypeHandler Import Fail: Content type with alias 'USN_CMP_CommonBlockSettings' has an invalid composition. Property types must have a unique alias across all compositions, these aliases are duplicate: anchorName.",
+      "exception": {
+        "ClassName": "System.Exception",
+        "Message": "Content type with alias 'USN_CMP_CommonBlockSettings' has an invalid composition. Property types must have a unique alias across all compositions, these aliases are duplicate: anchorName.",
+        "Data": {},
+        "InnerException": null,
+        "HelpURL": null,
+        "StackTraceString": null,
+        "RemoteStackTraceString": null,
+        "RemoteStackIndex": 0,
+        "ExceptionMethod": null,
+        "HResult": -2146233088,
+        "Source": null,
+        "WatsonBuckets": null
+      },
+      "change": "Fail",
+      "fileName": "",
+      "name": "usn_cmp_commonblocksettings.config",
+      "path": null,
+      "requiresPostProcessing": false,
+      "detailMessage": null,
+      "details": null,
+      "key": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usn_cmp_extracontent.config",
+      "name": "Extra Content",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Modals",
+          "path": "Tabs/Modals",
+          "oldValue": "",
+          "newValue": "Modals",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Pods",
+          "path": "Tabs/Pods",
+          "oldValue": "",
+          "newValue": "Pods",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Components",
+          "path": "Tabs/Components",
+          "oldValue": "",
+          "newValue": "Components",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "aboveMainContent/SortOrder",
+          "oldValue": "4",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "belowMainContent/SortOrder",
+          "oldValue": "6",
+          "newValue": "2",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "hideDefaultBottomComponents/SortOrder",
+          "oldValue": "7",
+          "newValue": "3",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "hideDefaultPods/SortOrder",
+          "oldValue": "8",
+          "newValue": "0",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "hideDefaultTopComponents/SortOrder",
+          "oldValue": "3",
+          "newValue": "0",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "hideGlobalModalWindow/Key",
+          "oldValue": "ec27b23a-5a24-40d6-a026-0553da475201",
+          "newValue": "fc5e70d5-5032-4305-8d44-8ae95d647b00",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "hideGlobalModalWindow/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Hide global modal window",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "hideGlobalModalWindow/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "hideGlobalModalWindow/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "hideGlobalModalWindow/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "hideGlobalModalWindow/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "hideGlobalModalWindow",
+          "path": "hideGlobalModalWindow",
+          "oldValue": "",
+          "newValue": "Hide global modal window",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "hidePeriod/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "hidePeriod/SortOrder",
+          "oldValue": "13",
+          "newValue": "4",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "modalWindow/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "modalWindow/SortOrder",
+          "oldValue": "10",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "openAfter/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "openAfter/SortOrder",
+          "oldValue": "12",
+          "newValue": "3",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "pagePods/SortOrder",
+          "oldValue": "9",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "scrollPercentage/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "scrollPercentage/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "scrollPercentage/SortOrder",
+          "oldValue": "11",
+          "newValue": "2",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "selectReusableContent/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "selectReusableContent/SortOrder",
+          "oldValue": "14",
+          "newValue": "5",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "aboveMainContent",
+          "path": "aboveMainContent/Tab/extraContent/components",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/components",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "belowMainContent",
+          "path": "belowMainContent/Tab/extraContent/components",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/components",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "hideDefaultBottomComponents",
+          "path": "hideDefaultBottomComponents/Tab/extraContent/components",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/components",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "hideDefaultPods",
+          "path": "hideDefaultPods/Tab/extraContent/pods",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/pods",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "hideDefaultTopComponents",
+          "path": "hideDefaultTopComponents/Tab/extraContent/components",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/components",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "hidePeriod",
+          "path": "hidePeriod/Tab/extraContent/modals",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/modals",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "modalWindow",
+          "path": "modalWindow/Tab/extraContent/modals",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/modals",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "openAfter",
+          "path": "openAfter/Tab/extraContent/modals",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/modals",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "pagePods",
+          "path": "pagePods/Tab/extraContent/pods",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/pods",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "scrollPercentage",
+          "path": "scrollPercentage/Tab/extraContent/modals",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/modals",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "selectReusableContent",
+          "path": "selectReusableContent/Tab/extraContent/modals",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/modals",
+          "change": "Update"
+        }
+      ],
+      "key": "88b64d42-3722-4141-bfb1-0e70713a7378"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usn_cmp_extracontentlisting.config",
+      "name": "Extra Content (Listing)",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Modals",
+          "path": "Tabs/Modals",
+          "oldValue": "",
+          "newValue": "Modals",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Components",
+          "path": "Tabs/Components",
+          "oldValue": "",
+          "newValue": "Components",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Pods",
+          "path": "Tabs/Pods",
+          "oldValue": "",
+          "newValue": "Pods",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "aboveListing/SortOrder",
+          "oldValue": "4",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "belowListing/SortOrder",
+          "oldValue": "6",
+          "newValue": "2",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "hideDefaultBottomComponents/SortOrder",
+          "oldValue": "7",
+          "newValue": "3",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "hideDefaultPods/SortOrder",
+          "oldValue": "8",
+          "newValue": "0",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "hideDefaultTopComponents/SortOrder",
+          "oldValue": "3",
+          "newValue": "0",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "hideGlobalModalWindow/Key",
+          "oldValue": "18d23e39-254f-40d5-9302-a716b2061194",
+          "newValue": "8ec2e890-6791-48d4-906c-29d76cb2e9be",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "hideGlobalModalWindow/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Hide global modal window",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "hideGlobalModalWindow/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "hideGlobalModalWindow/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "hideGlobalModalWindow/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "hideGlobalModalWindow/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "hideGlobalModalWindow",
+          "path": "hideGlobalModalWindow",
+          "oldValue": "",
+          "newValue": "Hide global modal window",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "hidePeriod/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "hidePeriod/SortOrder",
+          "oldValue": "13",
+          "newValue": "4",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "modalWindow/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "modalWindow/SortOrder",
+          "oldValue": "10",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "openAfter/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "openAfter/SortOrder",
+          "oldValue": "12",
+          "newValue": "3",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "pagePods/SortOrder",
+          "oldValue": "9",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "scrollPercentage/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "scrollPercentage/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "scrollPercentage/SortOrder",
+          "oldValue": "11",
+          "newValue": "2",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "selectReusableContent/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "selectReusableContent/SortOrder",
+          "oldValue": "14",
+          "newValue": "5",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "aboveListing",
+          "path": "aboveListing/Tab/extraContent/components",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/components",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "belowListing",
+          "path": "belowListing/Tab/extraContent/components",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/components",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "hideDefaultBottomComponents",
+          "path": "hideDefaultBottomComponents/Tab/extraContent/components",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/components",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "hideDefaultPods",
+          "path": "hideDefaultPods/Tab/extraContent/pods",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/pods",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "hideDefaultTopComponents",
+          "path": "hideDefaultTopComponents/Tab/extraContent/components",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/components",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "hidePeriod",
+          "path": "hidePeriod/Tab/extraContent/modals",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/modals",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "modalWindow",
+          "path": "modalWindow/Tab/extraContent/modals",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/modals",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "openAfter",
+          "path": "openAfter/Tab/extraContent/modals",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/modals",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "pagePods",
+          "path": "pagePods/Tab/extraContent/pods",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/pods",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "scrollPercentage",
+          "path": "scrollPercentage/Tab/extraContent/modals",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/modals",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "selectReusableContent",
+          "path": "selectReusableContent/Tab/extraContent/modals",
+          "oldValue": "(Blank)",
+          "newValue": "extraContent/modals",
+          "change": "Update"
+        }
+      ],
+      "key": "9ca505b5-271a-40b1-be92-1be7bd6a4d7a"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usn_cmp_minsettings.config",
+      "name": "Component Minimum (Settings)",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "anchorName",
+          "path": "Property/anchorName",
+          "oldValue": "",
+          "newValue": "",
+          "change": "Delete"
+        }
+      ],
+      "key": "783a62e6-c80a-4d9f-8289-86ba580bcc2b"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usn_cmp_pagenavigation.config",
+      "name": "Page Navigation",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Key",
+          "path": "searchResultsLinkText/Key",
+          "oldValue": "69b76801-e49d-457c-9f69-a0a3a26875a2",
+          "newValue": "5d0c6eea-e9d3-4354-90e1-3265b82a9219",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "searchResultsLinkText/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Search results link text",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "searchResultsLinkText/Description",
+          "oldValue": "(Blank)",
+          "newValue": "Page name will be used by default if nothing is entered.",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "searchResultsLinkText/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "searchResultsLinkText/SortOrder",
+          "oldValue": "0",
+          "newValue": "7",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "searchResultsLinkText/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "searchResultsLinkText/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Variations",
+          "path": "Property/Variations",
+          "oldValue": "Nothing",
+          "newValue": "Culture",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "searchResultsLinkText",
+          "path": "searchResultsLinkText",
+          "oldValue": "",
+          "newValue": "Search results link text",
+          "change": "Create"
+        }
+      ],
+      "key": "91e4acc9-f3f6-488c-802d-416f6e8a954e"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usn_cmp_scripts.config",
+      "name": "Page Scripts",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "After opening body scripts",
+          "path": "Tabs/After opening body scripts",
+          "oldValue": "",
+          "newValue": "After opening body scripts",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Header opening scripts",
+          "path": "Tabs/Header opening scripts",
+          "oldValue": "",
+          "newValue": "Header opening scripts",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Before closing body scripts",
+          "path": "Tabs/Before closing body scripts",
+          "oldValue": "",
+          "newValue": "Before closing body scripts",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Header closing scripts",
+          "path": "Tabs/Header closing scripts",
+          "oldValue": "",
+          "newValue": "Header closing scripts",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "disableGlobalAfterOpeningBodyScripts/Key",
+          "oldValue": "4a41d805-a105-489e-9316-5a30a8482567",
+          "newValue": "774b07af-5a02-4295-bed8-b03b9e9d756f",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "disableGlobalAfterOpeningBodyScripts/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Disable global scripts",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "disableGlobalAfterOpeningBodyScripts/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "disableGlobalAfterOpeningBodyScripts/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "disableGlobalAfterOpeningBodyScripts/SortOrder",
+          "oldValue": "0",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "disableGlobalAfterOpeningBodyScripts/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "disableGlobalAfterOpeningBodyScripts/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Variations",
+          "path": "Property/Variations",
+          "oldValue": "Nothing",
+          "newValue": "Culture",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "disableGlobalAfterOpeningBodyScripts",
+          "path": "disableGlobalAfterOpeningBodyScripts",
+          "oldValue": "",
+          "newValue": "Disable global scripts",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "disableGlobalBeforeClosingBodyScripts/Key",
+          "oldValue": "41bacd35-2fc0-41d2-925a-9fba1f2205f4",
+          "newValue": "04dabe00-e03e-4ad1-b933-a3620a4fffc0",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "disableGlobalBeforeClosingBodyScripts/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Disable global scripts",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "disableGlobalBeforeClosingBodyScripts/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "disableGlobalBeforeClosingBodyScripts/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "disableGlobalBeforeClosingBodyScripts/SortOrder",
+          "oldValue": "0",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "disableGlobalBeforeClosingBodyScripts/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "disableGlobalBeforeClosingBodyScripts/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Variations",
+          "path": "Property/Variations",
+          "oldValue": "Nothing",
+          "newValue": "Culture",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "disableGlobalBeforeClosingBodyScripts",
+          "path": "disableGlobalBeforeClosingBodyScripts",
+          "oldValue": "",
+          "newValue": "Disable global scripts",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "disableGlobalHeaderClosingScripts/Key",
+          "oldValue": "a4762a76-ad17-4333-8029-7c0a45a0d5d2",
+          "newValue": "494acf9d-bab6-44b4-b6c5-240788691d31",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "disableGlobalHeaderClosingScripts/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Disable global scripts",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "disableGlobalHeaderClosingScripts/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "disableGlobalHeaderClosingScripts/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "disableGlobalHeaderClosingScripts/SortOrder",
+          "oldValue": "0",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "disableGlobalHeaderClosingScripts/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "disableGlobalHeaderClosingScripts/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Variations",
+          "path": "Property/Variations",
+          "oldValue": "Nothing",
+          "newValue": "Culture",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "disableGlobalHeaderClosingScripts",
+          "path": "disableGlobalHeaderClosingScripts",
+          "oldValue": "",
+          "newValue": "Disable global scripts",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "disableGlobalHeaderOpeningScripts/Key",
+          "oldValue": "509951ee-86a1-45d5-99b3-9f118922a9d5",
+          "newValue": "32c1571a-5d5f-4dac-b9d8-5df835ae9a5c",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "disableGlobalHeaderOpeningScripts/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Disable global scripts",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "disableGlobalHeaderOpeningScripts/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "disableGlobalHeaderOpeningScripts/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "disableGlobalHeaderOpeningScripts/SortOrder",
+          "oldValue": "0",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "disableGlobalHeaderOpeningScripts/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "disableGlobalHeaderOpeningScripts/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Variations",
+          "path": "Property/Variations",
+          "oldValue": "Nothing",
+          "newValue": "Culture",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "disableGlobalHeaderOpeningScripts",
+          "path": "disableGlobalHeaderOpeningScripts",
+          "oldValue": "",
+          "newValue": "Disable global scripts",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "instructionsAfterOpeningBody/Key",
+          "oldValue": "7f47e8c7-0dd2-42b1-8160-0b139060b2e8",
+          "newValue": "d180a506-4b6d-46f5-a90b-363d820fd28a",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "instructionsAfterOpeningBody/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Instructions",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "instructionsAfterOpeningBody/Description",
+          "oldValue": "(Blank)",
+          "newValue": "<div class=\"alert  alert-usn\" role=\"alert\">These scripts are placed after the opening &lt;body&gt; tag on this page of your website. If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.</div>",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "instructionsAfterOpeningBody/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "instructionsAfterOpeningBody/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "instructionsAfterOpeningBody/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "instructionsAfterOpeningBody",
+          "path": "instructionsAfterOpeningBody",
+          "oldValue": "",
+          "newValue": "Instructions",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "instructionsBeforeClosingBody/Key",
+          "oldValue": "ed1ce12b-851e-4910-8223-b371ab82fbab",
+          "newValue": "0a0f4f3e-d990-40c2-8b34-09ad3ef36689",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "instructionsBeforeClosingBody/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Instructions",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "instructionsBeforeClosingBody/Description",
+          "oldValue": "(Blank)",
+          "newValue": "<div class=\"alert  alert-usn\" role=\"alert\">These scripts are placed before the closing &lt;/body&gt; tag on this page of your website. If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.</div>",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "instructionsBeforeClosingBody/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "instructionsBeforeClosingBody/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "instructionsBeforeClosingBody/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "instructionsBeforeClosingBody",
+          "path": "instructionsBeforeClosingBody",
+          "oldValue": "",
+          "newValue": "Instructions",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "instructionsHeaderClosing/Key",
+          "oldValue": "1fe03879-1d83-43f0-8e31-cda4285056f8",
+          "newValue": "5bfb7ca4-2bde-4a1e-ba7a-e8407e837293",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "instructionsHeaderClosing/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Instructions",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "instructionsHeaderClosing/Description",
+          "oldValue": "(Blank)",
+          "newValue": "<div class=\"alert  alert-usn\" role=\"alert\">These scripts are placed before the closing &lt;/head&gt; tag on this page of your website. If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.</div>",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "instructionsHeaderClosing/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "instructionsHeaderClosing/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "instructionsHeaderClosing/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "instructionsHeaderClosing",
+          "path": "instructionsHeaderClosing",
+          "oldValue": "",
+          "newValue": "Instructions",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "instructionsHeaderOpening/Key",
+          "oldValue": "9e9fc757-436d-46b6-a62f-e8e8b69d4980",
+          "newValue": "a7fdce39-5a4c-42a4-b68f-5e12a71c4813",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "instructionsHeaderOpening/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Instructions",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "instructionsHeaderOpening/Description",
+          "oldValue": "(Blank)",
+          "newValue": "<div class=\"alert  alert-usn\" role=\"alert\">These scripts are placed after the opening &lt;head&gt; tag on this page of your website. If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.</div>",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "instructionsHeaderOpening/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "instructionsHeaderOpening/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "instructionsHeaderOpening/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "instructionsHeaderOpening",
+          "path": "instructionsHeaderOpening",
+          "oldValue": "",
+          "newValue": "Instructions",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "pageAfterOpeningBodyScripts/Name",
+          "oldValue": "After opening body scripts",
+          "newValue": "Scripts",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "pageAfterOpeningBodyScripts/Description",
+          "oldValue": "Anything you enter here will be placed after the opening &lt;body&gt; tag on this page of your website. If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "pageBeforeClosingBodyScripts/Name",
+          "oldValue": "Before closing body scripts",
+          "newValue": "Scripts",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "pageBeforeClosingBodyScripts/Description",
+          "oldValue": "Anything you enter here will be placed before the closing &lt;/body&gt; tag on this page of your website. If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "pageBeforeClosingBodyScripts/SortOrder",
+          "oldValue": "3",
+          "newValue": "2",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "pageHeaderOpeningScripts/Name",
+          "oldValue": "Header opening scripts",
+          "newValue": "Scripts",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "pageHeaderOpeningScripts/Description",
+          "oldValue": "Anything you enter here will be placed after the opening &lt;head&gt; tag on this page of your website. If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "pageHeaderOpeningScripts/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "pageHeaderOpeningScripts/SortOrder",
+          "oldValue": "0",
+          "newValue": "2",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "pageHeaderScripts/Name",
+          "oldValue": "Header closing scripts",
+          "newValue": "Scripts",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "pageHeaderScripts/Description",
+          "oldValue": "Anything you enter here will be placed before the closing &lt;/head&gt; tag on this page of your website. If entering JavaScript make sure you enclose your code with &lt;script&gt; &lt;/script&gt; tags.",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "pageHeaderScripts/SortOrder",
+          "oldValue": "1",
+          "newValue": "2",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "pageAfterOpeningBodyScripts",
+          "path": "pageAfterOpeningBodyScripts/Tab/scripts/afterOpeningBodyScripts1",
+          "oldValue": "(Blank)",
+          "newValue": "scripts/afterOpeningBodyScripts1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "pageBeforeClosingBodyScripts",
+          "path": "pageBeforeClosingBodyScripts/Tab/scripts/beforeClosingBodyScripts",
+          "oldValue": "(Blank)",
+          "newValue": "scripts/beforeClosingBodyScripts",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "pageHeaderOpeningScripts",
+          "path": "pageHeaderOpeningScripts/Tab/scripts/headerOpeningScripts",
+          "oldValue": "(Blank)",
+          "newValue": "scripts/headerOpeningScripts",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "pageHeaderScripts",
+          "path": "pageHeaderScripts/Tab/scripts/headerClosingScripts1",
+          "oldValue": "(Blank)",
+          "newValue": "scripts/headerClosingScripts1",
+          "change": "Update"
+        }
+      ],
+      "key": "c2df847e-5bc1-450a-8266-1fe04ad26700"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usn_cmp_sitemap_content.config",
+      "name": "Sitemap (Content)",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "hideStartPage/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "includeBlogPosts/Key",
+          "oldValue": "081c9c98-773e-451f-8fb5-e380dc307104",
+          "newValue": "3d56877c-74da-4c28-ae09-655079a80285",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "includeBlogPosts/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Include blog posts",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "includeBlogPosts/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "includeBlogPosts/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "includeBlogPosts/SortOrder",
+          "oldValue": "0",
+          "newValue": "106",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "includeBlogPosts/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "includeBlogPosts/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "includeBlogPosts",
+          "path": "includeBlogPosts",
+          "oldValue": "",
+          "newValue": "Include blog posts",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "includeListingPages/Key",
+          "oldValue": "f3c8c514-181a-4ff8-88b6-5b1f53565a2d",
+          "newValue": "5b61faa5-b53a-4761-9890-99a3e01b4b08",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "includeListingPages/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Include listing pages",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "includeListingPages/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "includeListingPages/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "includeListingPages/SortOrder",
+          "oldValue": "0",
+          "newValue": "105",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "includeListingPages/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "includeListingPages/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "includeListingPages",
+          "path": "includeListingPages",
+          "oldValue": "",
+          "newValue": "Include listing pages",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "includeProductPages/Key",
+          "oldValue": "37ffe4bc-bea8-4ce9-82be-6ef8adae932d",
+          "newValue": "80e6b3d6-d19a-4465-967d-73b121d14f61",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "includeProductPages/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Include product pages",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "includeProductPages/Description",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "includeProductPages/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "includeProductPages/SortOrder",
+          "oldValue": "0",
+          "newValue": "104",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "includeProductPages/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "includeProductPages/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "includeProductPages",
+          "path": "includeProductPages",
+          "oldValue": "",
+          "newValue": "Include product pages",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "includeProtectedPages/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        }
+      ],
+      "key": "baae5b5b-c74d-4b85-97dd-7cf3778710f7"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usn_cmp_splitcommonsettings.config",
+      "name": "Component Split Common (Settings)",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Key",
+          "path": "anchorName/Key",
+          "oldValue": "d265b428-dce0-40f0-8715-d4bf2614aea1",
+          "newValue": "9dd20277-b93f-4189-a290-26935f71ede4",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "anchorName/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Anchor name",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "anchorName/Description",
+          "oldValue": "(Blank)",
+          "newValue": "Add a unique anchor name which can be used to link to the position of this item on a page. Any spaces will be converted to '_'",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "anchorName/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "anchorName/SortOrder",
+          "oldValue": "0",
+          "newValue": "2",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "anchorName/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "anchorName/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "anchorName",
+          "path": "anchorName",
+          "oldValue": "",
+          "newValue": "Anchor name",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "customSplitSectionClasses/SortOrder",
+          "oldValue": "1",
+          "newValue": "3",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "desktopColumnWidth/SortOrder",
+          "oldValue": "996",
+          "newValue": "0",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "hideFromWebsite/SortOrder",
+          "oldValue": "2",
+          "newValue": "4",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "itemSplitStyles/SortOrder",
+          "oldValue": "0",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "tabletColumnWidth/SortOrder",
+          "oldValue": "997",
+          "newValue": "1",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "verticalPosition/SortOrder",
+          "oldValue": "998",
+          "newValue": "2",
+          "change": "Update"
+        }
+      ],
+      "key": "f2ce976d-5629-4c48-a9cb-c31c00fa1049"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usnbloglandingpage.config",
+      "name": "Blog Landing Page",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "hideSubNavigation/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "subNavigationLinkText/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "summaryInstructions/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "DefaultTemplate",
+          "path": "DefaultTemplate",
+          "oldValue": "BlogListingPage",
+          "newValue": "USNBlogLandingPage",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "AllowedTemplates",
+          "path": "AllowedTemplates",
+          "oldValue": "BlogListingPage,USNBlogLandingPage",
+          "newValue": "USNBlogLandingPage",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Allowed",
+          "path": "/Structure",
+          "oldValue": "USNBlogAuthors,USNBlogCategories,USNBlogPostsFolder,USNBlogRSS",
+          "newValue": "(Blank)",
+          "change": "Update"
+        }
+      ],
+      "key": "2eb9c56f-90ad-432a-aaca-4bf9efa4688e"
+    },
+    {
+      "handlerAlias": "ContentTypeHandler",
+      "success": true,
+      "itemType": "IContentType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\ContentTypes\\usnhomepage.config",
+      "name": "Homepage",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "AllowAtRoot",
+          "path": "",
+          "oldValue": "True",
+          "newValue": "False",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Summary",
+          "path": "Tabs/Summary",
+          "oldValue": "",
+          "newValue": "Summary",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "SortOrder",
+          "path": "htmlSitemapLinkText/SortOrder",
+          "oldValue": "7",
+          "newValue": "5",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "summaryInstructions/Key",
+          "oldValue": "ac09c210-431e-419f-a2a4-25095fa08f09",
+          "newValue": "8f05488c-66c3-4d24-8d70-0df0fd574abc",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Name",
+          "path": "summaryInstructions/Name",
+          "oldValue": "(Blank)",
+          "newValue": "Instructions",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Description",
+          "path": "summaryInstructions/Description",
+          "oldValue": "(Blank)",
+          "newValue": "<div class=\"alert  alert-usn\" role=\"alert\">This  content is only displayed on a 'Related Content' pod.</div>",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Validation",
+          "path": "summaryInstructions/RegEx",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "MandatoryMessage",
+          "path": "summaryInstructions/MandatoryMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "ValidationRegExpMessage",
+          "path": "summaryInstructions/ValidationRegExpMessage",
+          "oldValue": "(Blank)",
+          "newValue": "(Blank)",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "summaryInstructions",
+          "path": "summaryInstructions",
+          "oldValue": "",
+          "newValue": "Instructions",
+          "change": "Create"
+        },
+        {
+          "success": true,
+          "name": "Compositions",
+          "path": "Info",
+          "oldValue": "USN_CMP_PageNavigation,USN_CMP_Scripts,USN_CMP_SEO,USN_CMP_PageAdvancedSettings,USN_CMP_MainContent,USN_CMP_ExtraContent,USN_CMP_DisableDelete",
+          "newValue": "USN_CMP_DisableDelete,USN_CMP_ExtraContent,USN_CMP_MainContent,USN_CMP_PageAdvancedSettings,USN_CMP_PageNavigation,USN_CMP_PageSummary,USN_CMP_Scripts,USN_CMP_SEO",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Allowed",
+          "path": "/Structure",
+          "oldValue": "USNBlogLandingPage,USNPage",
+          "newValue": "(Blank)",
+          "change": "Update"
+        }
+      ],
+      "key": "fbfff09a-13c6-4a65-b011-a8ce3e42581d"
+    },
+    {
+      "handlerAlias": "MediaTypeHandler",
+      "success": true,
+      "itemType": "IMediaType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\MediaTypes\\file.config",
+      "name": "File",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Key",
+          "path": "alternativeText/Key",
+          "oldValue": "fdc30a39-4806-429a-93da-ecb7d13db473",
+          "newValue": "131173c4-b162-41ff-a060-f6120c9e955a",
+          "change": "Update"
+        }
+      ],
+      "key": "4c52d8ab-54e6-40cd-999c-7a5f24903e4d"
+    },
+    {
+      "handlerAlias": "MediaTypeHandler",
+      "success": true,
+      "itemType": "IMediaType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\MediaTypes\\image.config",
+      "name": "Image",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Key",
+          "path": "alternativeText/Key",
+          "oldValue": "28b33fd8-9cd7-4d64-aeae-c49751a5aebb",
+          "newValue": "0ce44253-e364-43c4-8198-fdbf0ee1a022",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "disableWebPConversion/Key",
+          "oldValue": "2e8aab97-95b1-4f3e-9e12-5a46a40e3162",
+          "newValue": "4e4689d3-6a79-4fa9-847b-03379d989393",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "imageQuality/Key",
+          "oldValue": "75fda1ba-5160-4734-a3c8-0beaca3f7a74",
+          "newValue": "a4117361-43e0-4632-ad9a-dd45adbc960c",
+          "change": "Update"
+        }
+      ],
+      "key": "cc07b313-0843-4aa8-bbda-871c8da728c8"
+    },
+    {
+      "handlerAlias": "MediaTypeHandler",
+      "success": true,
+      "itemType": "IMediaType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\MediaTypes\\umbracomediavectorgraphics.config",
+      "name": "Vector Graphics (SVG)",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Key",
+          "path": "alternativeText/Key",
+          "oldValue": "bd11cc63-97ce-43a6-a22c-a473f7f37ac1",
+          "newValue": "06f75881-91de-4e95-b626-c51b2f8c1375",
+          "change": "Update"
+        }
+      ],
+      "key": "c4b1efcf-a9d5-41c4-9621-e9d273b52a9c"
+    },
+    {
+      "handlerAlias": "MemberTypeHandler",
+      "success": true,
+      "itemType": "IMemberType",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\MemberTypes\\member.config",
+      "name": "Member",
+      "path": "v9",
+      "requiresPostProcessing": true,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "Key",
+          "path": "emailConfirmationToken/Key",
+          "oldValue": "26dfaee7-47d9-48a2-9d76-5d8246d1d5d1",
+          "newValue": "872c3e48-8c0a-46b2-b5ef-a9502d79e735",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "emailConfirmed/Key",
+          "oldValue": "f3139120-3229-48c2-acac-8c127da6cf7e",
+          "newValue": "7376d1ea-8092-4ad2-a774-2de8479a287f",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "passwordToken/Key",
+          "oldValue": "ed27fd60-66de-49b0-a527-99d3ec453bba",
+          "newValue": "9a96e9e2-0aee-4760-bdad-db90cc24634b",
+          "change": "Update"
+        },
+        {
+          "success": true,
+          "name": "Key",
+          "path": "passwordTokenExpires/Key",
+          "oldValue": "6e0beda6-fdcb-4686-99e4-a62942ef0394",
+          "newValue": "9a6b8dea-2d3f-4c9a-bcf9-555074f32bf8",
+          "change": "Update"
+        }
+      ],
+      "key": "d59be02f-1df9-4228-aa1e-01917d806cda"
+    }
+  ],
+  "date": "2026-07-06T14:38:28.5657066+05:30",
+  "username": "dsingh2@geduservices.com",
+  "method": "Import",
+  "filePath": null,
+  "changes": 22,
+  "total": 439
+}

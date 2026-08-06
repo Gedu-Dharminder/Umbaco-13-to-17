@@ -1,0 +1,58 @@
+{
+  "actions": [
+    {
+      "handlerAlias": "DictionaryHandler",
+      "success": true,
+      "itemType": "IDictionaryItem",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\Dictionary\\usn-umbraco-form-not-selected.config",
+      "name": "USN Umbraco Form Not Selected",
+      "path": "v9",
+      "requiresPostProcessing": false,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "en-US",
+          "path": "USN Umbraco Form Not Selected/en-US",
+          "oldValue": "",
+          "newValue": "An Umbraco Form has not been selected in the CMS.",
+          "change": "Create"
+        }
+      ],
+      "key": "8623aa1a-0d67-4497-a70c-dacadf817e7a"
+    },
+    {
+      "handlerAlias": "DictionaryHandler",
+      "success": true,
+      "itemType": "IDictionaryItem",
+      "message": "",
+      "exception": null,
+      "change": "Import",
+      "fileName": "uSync\\v9\\Dictionary\\usn-website-not-published-further-information.config",
+      "name": "USN Website Not Published Further Information",
+      "path": "v9",
+      "requiresPostProcessing": false,
+      "detailMessage": null,
+      "details": [
+        {
+          "success": true,
+          "name": "en-US",
+          "path": "USN Website Not Published Further Information/en-US",
+          "oldValue": "",
+          "newValue": "",
+          "change": "Create"
+        }
+      ],
+      "key": "1ce648eb-cc7e-46ba-bb85-4169151541b4"
+    }
+  ],
+  "date": "2026-07-06T14:38:40.1790656+05:30",
+  "username": "dsingh2@geduservices.com",
+  "method": "Import",
+  "filePath": null,
+  "changes": 2,
+  "total": 152
+}

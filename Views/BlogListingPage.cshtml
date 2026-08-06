@@ -1,0 +1,653 @@
+﻿@inherits UmbracoViewPage<SiteBuilderBaseViewModel>
+@using USNSiteBuilder.Core.Models
+@using System.Globalization
+@using Umbraco.Cms.Core.Routing
+@inject IPublishedUrlProvider PublishedUrlProvider
+
+@{
+    Layout = "USNMaster.cshtml";
+
+    Usnstyle websiteStyle = (Usnstyle)Model.WebsiteStyle;
+
+    int blogLandingPageID = Model.IsDocumentType(UsnblogLandingPage.ModelTypeAlias)
+        ? Model.Id
+        : Model.AncestorOrSelf(UsnblogLandingPage.ModelTypeAlias).Id;
+
+    var blogs = Umbraco.Content(blogLandingPageID);
+
+    var categories = blogs?
+        .Children()
+        .FirstOrDefault(x => x.Name == "Categories")?
+        .Children()
+        .Where(x => x.IsPublished())
+        .OrderByDescending(x => x.CreateDate)
+        ?? Enumerable.Empty<IPublishedContent>();
+
+    var posts = blogs?
+        .Children()
+        .FirstOrDefault(x => x.Name == "Posts")?
+        .Children()
+        .Where(x => x.IsPublished())
+        .OrderByDescending(x => x.Value<DateTime?>("postDate"))
+        ?? Enumerable.Empty<IPublishedContent>();
+
+    var mostRecentBlog = posts
+        .OrderByDescending(x => x.Value<DateTime?>("postDate"))
+        .FirstOrDefault();
+    
+    var remainingPosts =  posts
+        .OrderByDescending(x => x.Value<DateTime?>("postDate"));
+    
+    var allCount = remainingPosts.Count();
+}
+
+@section BodyTag
+{
+    @await Html.PartialAsync(Model.ThemeFolder + "/MiscPageElements/BodyTag",
+        Model,
+        new ViewDataDictionary(ViewData)
+        {
+            { "pageLayout", Model.PageLayoutSettings.PageLayout }
+        })
+}
+
+<!-- 🔥 HERO / BANNER -->
+@if (mostRecentBlog != null)
+{
+    var title = mostRecentBlog.Value<string>("pageListingHeading") ?? mostRecentBlog.Name;
+    var readTime = mostRecentBlog.Value<string>("readingTime");
+    var image = mostRecentBlog.Value<IPublishedContent>("pageListingImage");
+    var imageUrl = image?.Url() ?? "/images/placeholder.jpg";
+var url = mostRecentBlog.Url();
+    var dateValue = mostRecentBlog.Value<DateTime?>("postDate");
+    var formattedMonth = dateValue?.ToString("MMMM", CultureInfo.InvariantCulture);
+    var formattedYear = dateValue?.ToString("dd, yyyy", CultureInfo.InvariantCulture);
+
+    var authors = mostRecentBlog.Value<IEnumerable<IPublishedContent>>("postAuthor");
+
+    <div class="bannerpost">
+        <div class="left-side">
+            
+            <div class="content">
+                <span class="recent-badge">Recent blog</span>
+                <h1>@Html.Raw(title)</h1>
+
+                <ul> @if (authors != null && authors.Any())
+                        {
+                    <li><span class="svgicon"><img src="/media/dyshmiha/author.svg" /></span>
+                       
+                            @string.Join(", ", authors.Select(x => x.Name))
+                       
+                    </li>
+                     }
+                    <li><span class="svgicon"><img src="/media/dg5fmgdn/calander-2.svg" /></span> @formattedMonth @formattedYear</li>
+
+                    @if (!string.IsNullOrEmpty(readTime))
+                    {
+                        <li><span class="svgicon"><img src="/media/epzpx403/clockicon.svg" /></span> @readTime</li>
+                    }
+                </ul>
+                <a href="@url" class="read-more">
+                      Read More →
+                    </a>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <img src="@imageUrl" />
+        </div>
+    </div>
+}
+
+<div class="container">
+
+    <!-- 🔘 FILTERS -->
+    @if (categories.Any())
+    {
+        <div class="filter-section">
+            <div class="filter-box">
+                <div class="filter-buttons">
+
+                <button class="resource-filter active" data-filter="all">
+                    All Blogs <span class="filter-count">@allCount</span>
+                </button>
+
+                @foreach (var cat in categories)
+                {
+           
+                var count = remainingPosts.Count(post =>
+                {
+                    var postCategories = post.Value<IEnumerable<IPublishedContent>>("postCategories");
+                    return postCategories != null && postCategories.Any(c => c.Id == cat.Id);
+                });
+
+                    <button class="resource-filter" data-filter="@cat.Name">
+                        @cat.Name <span class="filter-count">@count</span>
+                    </button>
+                }
+                
+            </div>
+            <lable class="searchInputlable">
+                <input type="text" placeholder="Search blog..." class="searchInput">
+            </lable>
+            </div>
+        </div>
+    }
+
+    <!-- 📰 POSTS -->
+    @if (remainingPosts.Any())
+    {
+        <div id="newsContainer">
+            @foreach (var item in remainingPosts)
+            {
+                var title = item.Value<string>("pageListingHeading") ?? item.Name;
+                var image = item.Value<IPublishedContent>("pageListingImage");
+                var imageUrl = image?.Url() ?? "/images/placeholder.jpg";
+                var dateValue = item.Value<DateTime?>("postDate");
+                var formattedMonth = dateValue?.ToString("MMMM", CultureInfo.InvariantCulture);
+                var formattedYear = dateValue?.ToString("dd, yyyy", CultureInfo.InvariantCulture);
+                var readTime = item.Value<string>("readingTime");
+                var authors = item.Value<IEnumerable<IPublishedContent>>("postAuthor");
+                var url = item.Url();
+                var description = item.Value<string>("pageSummary");
+                var categoriesList = item.Value<IEnumerable<IPublishedContent>>("postCategories");
+
+                var categoryNames = categoriesList != null
+                    ? string.Join(",", categoriesList.Select(x => x.Name.ToLower()))
+                    : "";
+
+                <div class="news-item" data-category="@categoryNames">
+                    <div class="card">
+                  <div class="card-image">
+                    <img src="@imageUrl" alt="STEM Education" />
+                    <span class="badge">@categoryNames</span>
+                  </div>
+                
+                  <div class="card-content">
+                    <h2>@Html.Raw(title)</h2>
+                    <div class="descripiton">
+                      @Html.Raw(description)
+                    </div>
+                
+                    <div class="divider"></div>
+                
+                    <div class="meta">
+                         @if (authors != null && authors.Any())
+                                        {
+                                         <div class="author"><span class="svgicon"><img src="/media/sa3e2pwd/goldenauthoricon.svg" /></span> @string.Join(", ", authors.Select(x => x.Name))</div>
+                                        }
+                      <div class="date"><span class="svgicon"><img src="/media/r0acsjoz/grey-calander-icon.svg" /></span> @formattedMonth @formattedYear</div>
+                      <div class="read-time"><span class="svgicon"><img src="/media/gzbijnv4/grey-clock-icon.svg" /> </span> @readTime</div>
+                    </div>
+                
+                    <a href="@url" class="read-more">
+                      Read More →
+                    </a>
+                  </div>
+                </div>
+                                </div>
+                            }
+                        </div>
+    }
+</div>
+
+<!-- 🎨 STYLES -->
+
+<style>
+.svgicon{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 0px !important;
+    margin-bottom: 5px ;
+}
+.svgicon img{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 5px ;
+}
+
+.bannerpost { 
+    display:flex; 
+    background:#85754E; 
+    color:#fff; 
+    
+}
+.bannerpost .left-side { 
+    width:50%; 
+    padding:20px 0px; 
+    display: flex; 
+    align-items: center;
+    
+}
+
+.bannerpost .left-side .content{ 
+    width: calc(var(--component-max-width) / 2); 
+    margin-left: auto; 
+    padding-left: 90px !important;
+    
+}
+.bannerpost .left-side .recent-badge{
+    background: #00142E;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 12px;
+    display: inline-block;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    width: fit-content;
+}
+.bannerpost .left-side h1{
+    font-family: Tinos;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 36px;
+    color: #fff;
+    margin: 0px;
+
+}
+.has-heading-seperator-below h1::after{
+    display: none;
+}
+.bannerpost .left-side .read-more{
+    color: #fff;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+}
+.bannerpost .left-side ul {
+    margin: 10px 0px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 10px;
+}
+.bannerpost .left-side ul li{
+    margin-right: 20px;
+    opacity: 90%;
+}
+.bannerpost .left-side ul li span{
+    margin-right: 10px;
+}
+
+.bannerpost .right-side { 
+    width:50%; 
+    
+}
+
+
+.filter-box{
+    display:flex;
+    justify-content: space-between;
+}
+.filter-buttons { 
+    display:flex; 
+    gap:10px; 
+    flex-wrap:wrap; 
+    margin:20px 0; 
+    
+}
+.filter-buttons .resource-filter .filter-count{
+    padding: 2px 8px;
+    background: #fff;
+}
+.filter-buttons .resource-filter.active .filter-count{
+
+    background: #FFFFFF33;
+}
+.resource-filter {
+    padding: 10px 16px;
+    font-size: 13px;
+    cursor: pointer !important;
+    border: 0;
+    background: #F3F4F6;
+    color: #071D49B2;
+    font-weight: 600;
+}
+.resource-filter.active {
+    background: #00142E;
+    color:#fff;
+}
+.searchInput{
+    width: 100%;
+    height: 100%;
+    font-family: Soleil;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    color: #36415380;
+    border: 1px solid #D1D5DC;
+    padding: 1px 1px 1px 40px;
+}
+.searchInputlable{
+    position: relative;
+    height: 50px;
+    margin: 20px 0;
+}
+.searchInputlable:before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("https://www.qedubaisportscity.com/media/n1wbemgd/serachicon.svg");
+    z-index: 9;
+}
+#newsContainer {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+    margin-bottom: 30px;
+}
+
+/************************************ Card *********************************************8*/
+.card {
+    /*width: 380px;*/
+    background: #fff;
+    border-radius: 0px;
+    overflow: hidden;
+    border-top: 1.03px solid #E5E7EB;
+    min-height: 480px;
+}
+
+
+.card-image {
+    position: relative;
+}
+
+.card-image img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    height: 200px;
+}
+
+
+.badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: #fff;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    color: #00142E;
+    font-family: 'Soleil-Regular';
+    font-weight: 600;
+    font-size: 11.28px;
+    text-transform: uppercase;
+
+}
+
+
+.card-content {
+  padding: 22px;
+}
+
+.card-content h2 {
+  font-size: 22px;
+  color: #00142E;
+  margin: 0px;
+}
+
+.card-content p {
+  font-size: 14px;
+  color: #4A5565;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 16px 0;
+}
+
+
+.meta {
+  font-size: 13px;
+  color: #6b7280;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.meta .author{
+   flex: 0 0 100%;
+   color: #6A7282;
+}
+.meta .date , .meta .read-time{
+   flex: 0 0 49%; 
+   color: #99A1AF;
+}
+.meta .read-time{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 5px;
+}
+
+.read-more {
+  font-size: 14px;
+  color: #85754E;
+  text-decoration: none !important;
+  font-weight: 500;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+.read-more:hover {
+  color: #5c4528;
+  transform: translateX(3px);
+}
+
+/*150% screen size styling */
+
+@@media (min-width: 1200px) and (max-width: 1450px) {
+    .container {
+        max-width:90% !important;
+    }
+    .bannerpost .left-side .content {
+    padding-left: 113px !important;
+}
+.searchInput {
+    padding: 1px 1px 1px 30px;
+}
+.resource-filter {
+    padding: 10px 10px;
+    font-size: 13px;
+    }
+}
+
+/********************************** Mobile only *******************************/
+
+@@media (max-width: 992px){
+
+    .bannerpost {
+    flex-direction: column-reverse;
+    }
+    .bannerpost .left-side ,  .bannerpost .right-side{
+    width: 100% !important;
+    }
+    .bannerpost .left-side .content{
+        width: 100%;
+        max-width: 720px;
+        margin: auto;
+        padding-left: 12px !important;
+    }
+    .searchInput , .searchInputlable{
+    width: 100%;
+    height: 44px;
+    }
+    .filter-box{
+    display:block;
+}
+#newsContainer{
+margin-top: 30px;}
+    
+}
+@@media (max-width: 768px) {
+    
+            max-width: 720px;
+    .filter-buttons {
+        position: relative;
+    }
+
+ 
+    .filter-buttons.dropdown-active .resource-filter {
+        display: block;
+    }
+
+    .filter-buttons .resource-filter {
+        display: none;
+        width: 100%;
+        text-align: left;
+        padding: 10px;
+        border: 1px solid #eee;
+    }
+
+
+    .filter-buttons .resource-filter.active {
+        display: block;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        position: relative;
+    }
+
+
+    .filter-buttons .resource-filter.active::after {
+        content: "▼";
+        position: absolute;
+        right: 10px;
+    }
+
+
+    .filter-buttons.dropdown-active .resource-filter {
+        display: block;
+    }
+
+    .filter-buttons.dropdown-active .resource-filter.active::after {
+        content: "▲";
+    }
+    
+    
+    
+    #newsContainer {
+    grid-template-columns: repeat(2, 1fr);
+    }
+    .card {
+        width: 100%;
+        min-height: 483px;
+    }
+    .meta .date, .meta .read-time{
+    flex: 0 0 47%;
+    }
+    .bannerpost .left-side .content{
+        max-width: 540px;
+    }
+    
+}
+
+@@media (max-width: 575px){
+h1 br{
+ display: none;
+}
+
+    #newsContainer {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 30px;
+        }
+    
+}
+
+</style>
+
+<!-- ⚙️ SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const buttons = document.querySelectorAll(".resource-filter");
+    const items = document.querySelectorAll(".news-item");
+    const searchInput = document.querySelector(".searchInput");
+
+    let activeFilter = "all";
+    let searchText = "";
+
+    function applyFilter() {
+        const filter = activeFilter.toLowerCase();
+        const search = searchText.toLowerCase();
+
+        buttons.forEach(b => {
+            b.classList.toggle("active", b.dataset.filter.toLowerCase() === filter);
+        });
+
+        items.forEach(item => {
+            const categories = (item.dataset.category || "").toLowerCase();
+            const title = item.querySelector("h2")?.textContent.toLowerCase() || "";
+            const description = item.querySelector(".descripiton p")?.textContent.toLowerCase() || "";
+            const text = title + " " + description;
+
+            const matchCategory = filter === "all" || categories.includes(filter);
+            const matchSearch = text.includes(search);
+
+            item.style.display = (matchCategory && matchSearch) ? "block" : "none";
+        });
+    }
+
+    // Button filter
+    buttons.forEach(btn => {
+        btn.addEventListener("click", function () {
+            activeFilter = this.dataset.filter;
+
+            const url = new URL(window.location);
+            url.searchParams.set("type", activeFilter.toLowerCase());
+            window.history.replaceState({}, "", url);
+
+            applyFilter();
+        });
+    });
+
+    // Search input
+    searchInput.addEventListener("input", function () {
+        searchText = this.value;
+        applyFilter();
+    });
+
+    // Load from URL
+    const params = new URLSearchParams(window.location.search);
+    activeFilter = params.get("type") || "all";
+
+    applyFilter();
+});
+
+
+const filterContainer = document.querySelector('.filter-buttons');
+const filters = document.querySelectorAll('.resource-filter');
+
+filters.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+
+        // If clicking active → just toggle dropdown
+        if (btn.classList.contains('active')) {
+            filterContainer.classList.toggle('dropdown-active');
+            return;
+        }
+
+        // Remove old active
+        filters.forEach(b => b.classList.remove('active'));
+
+        // Set new active
+        btn.classList.add('active');
+
+        // Close dropdown
+        filterContainer.classList.remove('dropdown-active');
+    });
+});
+</script>

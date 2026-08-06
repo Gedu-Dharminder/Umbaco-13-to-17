@@ -1,0 +1,129 @@
+trigger:
+  branches:
+    include:
+      - develop
+      - main
+  paths:
+    exclude:
+      - README.md
+      - .gitignore
+pr: none
+# ==========================================
+# Variables
+# ==========================================
+variables:
+  buildConfiguration: 'Release'
+  dotnetVersion: '10.0.x'
+  azureServiceConnection: 'GEDU-WEB-HOSTING'
+  # DEV
+  devWebAppName: 'dev-ukwt-qedubaisportscity-website'
+  devResourceGroup: 'dev-ukwt-webapps'
+  # PRD
+  prdWebAppName: 'prd-ukwt-qedubaisportscity-website'
+  prdResourceGroup: 'prd-ukwt-webapps'
+pool:
+  name: 'GEDU-Self-hosted'
+  demands:
+    - Agent.Name -equals PRD-UKWT-DG-IR-
+  # Windows required - app is deployed to Windows App Service Plan
+# ==========================================
+# Stages
+# ==========================================
+stages:
+# ==========================================
+# Stage 1 - Build
+# ==========================================
+- stage: Build
+  displayName: '🔨 Build'
+  jobs:
+  - job: BuildJob
+    displayName: 'Build .NET 10 Application'
+    steps:
+    - checkout: self
+      fetchDepth: 0
+    - task: UseDotNet@2
+      displayName: 'Use .NET SDK $(dotnetVersion)'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore NuGet Packages'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
+    - task: DotNetCoreCLI@2
+      displayName: 'Build Solution'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration) --no-restore'
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish Application'
+      inputs:
+        command: 'publish'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration) --no-build --output $(Build.ArtifactStagingDirectory)/publish'
+        publishWebProjects: true
+        zipAfterPublish: true
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build Artifact'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/publish'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+# ==========================================
+# Stage 2 - Deploy to DEV
+# ==========================================
+- stage: Deploy_DEV
+  displayName: '🚀 Deploy → DEV'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  jobs:
+  - deployment: DeployDEV
+    displayName: 'Deploy to $(devWebAppName)'
+    environment: 'dev-ukwt-qedubaisportscity-website'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy to DEV Web App'
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: $(azureServiceConnection)
+              appType: 'webApp'
+              WebAppName: $(devWebAppName)
+              ResourceGroupName: $(devResourceGroup)
+              packageForLinux: '$(Pipeline.Workspace)/drop/**/*.zip'
+              DeploymentType: 'webDeploy'
+              enableCustomDeployment: true
+              ExcludeFilesFromAppDataFlag: false
+              TakeAppOfflineFlag: false
+# ==========================================
+# Stage 3 - Deploy to PRD
+# ==========================================
+- stage: Deploy_PRD
+  displayName: '🏁 Deploy → PROD'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: DeployPRD
+    displayName: 'Deploy to $(prdWebAppName)'
+    environment: 'prd-ukwt-qedubaisportscity-website'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy to PRD Web App'
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: $(azureServiceConnection)
+              appType: 'webApp'
+              WebAppName: $(prdWebAppName)
+              ResourceGroupName: $(prdResourceGroup)
+              packageForLinux: '$(Pipeline.Workspace)/drop/**/*.zip'
+              DeploymentType: 'webDeploy'
+              enableCustomDeployment: true
+              ExcludeFilesFromAppDataFlag: false
+              TakeAppOfflineFlag: false

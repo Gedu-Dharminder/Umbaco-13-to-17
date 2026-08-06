@@ -1,0 +1,1303 @@
+﻿@inherits UmbracoViewPage<SiteBuilderBaseViewModel>
+@using USNSiteBuilder.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using System.Globalization
+@using Umbraco.Cms.Core.Routing
+@inject IPublishedUrlProvider PublishedUrlProvider
+@{
+    Layout = "USNMaster.cshtml";
+    Usnstyle websiteStyle = (Usnstyle)Model.WebsiteStyle;
+    int blogLandingPageID = Model.IsDocumentType(UsnblogLandingPage.ModelTypeAlias) ? Model.Id : Model.AncestorOrSelf(UsnblogLandingPage.ModelTypeAlias).Id;
+    var blog = Model;
+    var articleUrl = blog.Url(mode: UrlMode.Absolute);
+    var readTime = blog.Value<string>("readingTime");
+    var categoriesList = blog.Value<IEnumerable<IPublishedContent>>("postCategories");
+    var authors = blog.Value<IEnumerable<IPublishedContent>>("postAuthor");
+    var Tags = blog.Value<IEnumerable<string>>("tags");
+    var dateValue = blog.Value<DateTime?>("postDate");
+    var formattedMonth = dateValue?.ToString("MMMM", CultureInfo.InvariantCulture);
+    var formattedYear = dateValue?.ToString("dd, yyyy", CultureInfo.InvariantCulture);
+var faqs = Model.Value<BlockListModel>("fAQs", fallback: Fallback.To(Fallback.Ancestors, Fallback.DefaultValue, Fallback.Language));
+    var blogpage = Model.AncestorOrSelf(UsnblogLandingPage.ModelTypeAlias);
+    var categories = blogpage?
+    .Children()
+    .FirstOrDefault(x => x.Name == "Categories")?
+    .Children()
+    .Where(x => x.IsPublished())
+    .OrderByDescending(x => x.CreateDate)
+    ?? Enumerable.Empty<IPublishedContent>();
+    
+    var allPosts = blog.Parent.Children()
+                    .Where(x => x.IsVisible());
+
+    // Filter related posts
+    var relatedPosts = allPosts
+        .Where(post => post.Id != blog.Id &&
+            post.Value<IEnumerable<IPublishedContent>>("postCategories")
+                .Any(cat => categoriesList.Select(c => c.Id).Contains(cat.Id))
+        )
+        .Take(3);
+        
+    var orderedPosts = blog.Parent.Children()
+        .Where(x => x.IsVisible())
+        .OrderByDescending(x => x.Value<DateTime?>("postDate"))
+        .ToList();
+
+    var otherpost = orderedPosts
+        .SkipWhile(x => x.Id != blog.Id) // move until current post
+        .Skip(1) // skip current post itself
+        .Take(3);
+}
+    @section BodyTag
+{
+
+    @await Html.PartialAsync(Model.ThemeFolder + "/MiscPageElements/BodyTag", Model, new ViewDataDictionary(ViewData) { { "pageLayout", Model.PageLayoutSettings.PageLayout } })
+}
+
+    @await Html.PartialAsync(Model.ThemeFolder + "/BlockContainers/BlockComponents", Model, new ViewDataDictionary(ViewData) { { "blockFieldAlias", "aboveMainContent" }, { "pageLayout", "pageLayoutFull" } })
+
+@if (Model.PageLayoutSettings.PageLayout == "pageLayoutFull")
+{
+ <section class="content base-bg">
+        <div class="container">
+            <div class="row justify-content-between blog-main">
+                 <!--// Content column -->  
+                <div class="content-col left-col col-lg-8 col-12 blog-heading pe-md-5">
+                    <div class="breadcrum">
+                        <ul>
+                            <li><a href="@blogpage.Parent.Url()">@blogpage.Parent.Name</a></li>
+                            <li><a href="@blogpage.Url()">@blogpage.Name</a></li>
+                            <li><a href="@blog.Url()">@blog.Name</a></li>
+                        </ul>
+                    </div>
+                    @if (categoriesList != null && categoriesList.Any())
+                    {
+                        <ul class="blog-categories">
+                        @foreach (var category in categoriesList)
+                        {
+                            <li>@category.Name</li>
+                        }
+                        </ul>
+                    }
+                    @await Html.PartialAsync(Model.ThemeFolder + "/MiscPageElements/PageTitle", Model)
+                    <div class="meta-box">
+                        @if (authors != null && authors.Any())
+                        {
+                            <div class="author"><span class="svgicon"><img src="/media/sa3e2pwd/goldenauthoricon.svg" /></span> @string.Join(", ", authors.Select(x => x.Name))</div>
+                        }
+                        <div class="date"><span class="svgicon"><img src="/media/kc5h2ujj/golden-calander-icon.svg" /></span> @formattedMonth @formattedYear</div>
+                        @if(!string.IsNullOrWhiteSpace(readTime)){
+                        <div class="read-time"><span class="svgicon"><img src="/media/0jca5owr/gloden-clock-icon.svg" /></span> @readTime</div>
+                        }
+                    </div>
+                    <div class="share-artical-box">
+                        <div class="heading-box">
+                            <h3>Share this article</h3>
+                            <p>Help others discover this content</p>
+                        </div>
+                        <div class="social-media-box">
+                            <ul>
+                                <li class="social-icon">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=@articleUrl" target="_blank">
+                                        <img src="/media/inmnp0dm/facebook-2.svg"/>
+                                    </a>
+                                </li>
+                                <li class="social-icon">
+                                    <a href="https://www.instagram.com/direct/new/?text=@articleUrl" target="_blank">
+                                        <img src="/media/ycnbkmxw/instagram-2.svg"/>
+                                    </a>
+                                </li>
+                                <li class="social-icon">
+                                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=@articleUrl" target="_blank">
+                                        <img src="/media/35yddcxc/linkedin-2.svg"/>
+                                    </a>
+                                </li>
+                                <li class="social-icon">
+                                    <a href="javascript:void(0);" onclick="copyLink('@articleUrl')">
+                                        <img src="/media/fhkgetix/copylink.svg" />
+                                        <span class="linkcopedtext">Link copied!</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="content-box">
+                        @await Html.PartialAsync(Model.ThemeFolder + "/BlockContainers/BlockComponents", Model, new ViewDataDictionary(ViewData) { { "blockFieldAlias", "mainContent" }, { "pageLayout", Model.PageLayoutSettings.PageLayout } })
+                    </div>
+                    @if (Tags != null && Tags.Any())
+                    {
+                    <div class="tag-box">
+                        <h3 class="heading">Tags</h3>
+                        <div class="tags">
+                            @foreach (var tag in Tags)
+                            {
+                                <span class="tag">@tag</span>
+                            }
+                        </div>
+                    </div>
+                    }
+                </div>
+                <!--side column -->
+                <div class="content-col col-lg-4 col-12 blog-sidebar">
+                    <div class="table-of-content">
+                        <h3>Table of Contents</h3>
+                        <div id="content-list"></div>
+                    </div>
+                    @if(categories.Any())
+                    {
+                        <div class="categories-column">
+                        <h3>Categories</h3>
+                        @foreach (var cat in categories)
+                        {
+                            <span class="resource-categories">
+                                @cat.Name
+                            </span>
+                        }
+                        </div>
+                    }
+                <div class="relatedpostbox">
+                    <h3>Related Articles</h3>
+                    @if(relatedPosts.Any())
+                    {
+                        foreach (var relpost in relatedPosts)
+                        {
+                            var relcategories = relpost.Value<IEnumerable<IPublishedContent>>("postCategories");
+                            var reldateValue = relpost.Value<DateTime?>("postDate");
+                            var relformattedMonth = reldateValue?.ToString("MMMM", CultureInfo.InvariantCulture);
+                            var relformattedYear = reldateValue?.ToString("dd, yyyy", CultureInfo.InvariantCulture);
+                            var image = relpost.Value<IPublishedContent>("pageListingImage");
+                            var imageUrl = image?.Url() ?? "/images/placeholder.jpg";
+                            <a href="@relpost.Url()">
+                                <div class="post">
+                                <div class="image"><img src="@imageUrl"></div>
+                                
+                                <div class="content">
+                                    <ul>
+                                    @foreach (var cat in relcategories)
+                                    {
+                                        <li>@cat.Name</li>
+                                    }
+                                    </ul>
+                                    <h4>@relpost.Name</h4>
+                                    <p><span class="svgicon"><img src="/media/r0acsjoz/grey-calander-icon.svg" /></span> @relformattedMonth @relformattedYear</p>
+                                </div>
+                            </div>
+                            </a>
+                        }
+                        
+                    }
+                    <a class="viewall" href="@blogpage.Url()">View All Articles</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    @if (faqs != null && faqs.Any())
+    
+    {
+        <section class="faqs-section">
+            <div class="container">
+                <h3 class="heading">FAQs</h3>
+                <div class="faqs">
+                    @foreach (var item in faqs)
+                    {
+                        var content = item.Content;
+                        
+                        var heading = content.Value<string>("itemHeading");
+                        var text = content.Value<string>("repeaterText");
+                        
+                        <div class="faq-item">
+                            <h4 class="faq-heading">@heading</h4>
+                            <div class="faq-content">@Html.Raw(text)</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+    @if(otherpost.Any())
+    {
+        <section class="OtherBlogSection">
+            <div class="container">
+                <div class="other-blogs">
+                    <div class="heading-box">
+                        <h2 class="heading">You May Also Explore Our Other Blog Posts</h2>
+                        <p>Discover more insights and stories from Queen Elizabeth's School</p>
+                    </div>
+                    <div class="more-blogs">
+                    @foreach (var item in otherpost)
+                    {
+                        var itemTitle = item.Value<string>("pageListingHeading") ?? item.Name;
+                        var itemImage = item.Value<IPublishedContent>("pageListingImage");
+                        var itemImageUrl = itemImage?.Url() ?? "/images/placeholder.jpg";
+                        var itemDateValue = item.Value<DateTime?>("postDate");
+                        var itemFormattedMonth = itemDateValue?.ToString("MMMM", CultureInfo.InvariantCulture);
+                        var itemFormattedYear = itemDateValue?.ToString("dd, yyyy", CultureInfo.InvariantCulture);
+                        var itemReadTime = item.Value<string>("readingTime");
+                        var itemAuthors = item.Value<IEnumerable<IPublishedContent>>("postAuthor");
+                        var itemUrl = item.Url();
+                        var itemDescription = item.Value<string>("pageSummary");
+                        var itemCategoriesList = item.Value<IEnumerable<IPublishedContent>>("postCategories");
+                        
+                        var categoryNames = itemCategoriesList != null
+                        ? string.Join(",", itemCategoriesList.Select(x => x.Name.ToLower()))
+                        : "";
+                        
+                        
+                        <div class="news-item" data-category="@categoryNames">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="@itemImageUrl" alt="STEM Education" />
+                                    <span class="badge">@categoryNames</span>
+                                </div>
+                                
+                                <div class="card-content">
+                                    <h3>@Html.Raw(itemTitle)</h3>
+                                    <div class="descripiton">
+                                        @Html.Raw(itemDescription)
+                                    </div>
+                                    
+                                    <div class="divider"></div>
+                                    
+                                    <div class="meta">
+                                        @if (itemAuthors != null && itemAuthors.Any())
+                                        {
+                                            <div class="author"><span class="svgicon"><img src="/media/sa3e2pwd/goldenauthoricon.svg" /></span>   @string.Join(", ", itemAuthors.Select(x => x.Name))</div>
+                                        }
+                                        <div class="date"><span class="svgicon"><img src="/media/r0acsjoz/grey-calander-icon.svg" /></span> @itemFormattedMonth @itemFormattedYear</div>
+                                         @if(!string.IsNullOrWhiteSpace(readTime)){
+                                        <div class="read-time"><span class="svgicon"><img src="/media/gzbijnv4/grey-clock-icon.svg" /></span> @itemReadTime</div>
+                                        }
+                                    </div>
+                                    
+                                    <a href="@itemUrl" class="read-more">
+                                    Read More →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    </div>
+                    <a class="viewallbtn" href="@blogpage.Url()">View All Articles →</a>
+                </div>
+            </div>
+        </section>
+    }
+    
+}
+
+@if (Model.PageLayoutSettings.PageLayout != "pageLayoutFull")
+
+{
+    
+    <section class="content base-bg">
+        <div class="container">
+            <div class="row justify-content-between blog-main">
+                 <!--// Content column -->  
+                <div class="content-col left-col col-lg-8 col-12 blog-heading pe-md-5">
+                    <div class="breadcrum">
+                        <ul>
+                            <li><a href="@blogpage.Parent.Url()">@blogpage.Parent.Name</a></li>
+                            <li><a href="@blogpage.Url()">@blogpage.Name</a></li>
+                            <li><a href="@blog.Url()">@blog.Name</a></li>
+                        </ul>
+                    </div>
+                    @if (categoriesList != null && categoriesList.Any())
+                    {
+                        <ul class="blog-categories">
+                        @foreach (var category in categoriesList)
+                        {
+                            <li>@category.Name</li>
+                        }
+                        </ul>
+                    }
+                    @await Html.PartialAsync(Model.ThemeFolder + "/MiscPageElements/PageTitle", Model)
+                    <div class="meta-box">
+                        @if (authors != null && authors.Any())
+                        {
+                            <div class="author"><span class="svgicon"><img src="/media/sa3e2pwd/goldenauthoricon.svg" /></span> @string.Join(", ", authors.Select(x => x.Name))</div>
+                        }
+                        <div class="date"><span class="svgicon"><img src="/media/kc5h2ujj/golden-calander-icon.svg" /></span> @formattedMonth @formattedYear</div>
+                        @if(!string.IsNullOrWhiteSpace(readTime)){
+                        <div class="read-time"><span class="svgicon"><img src="/media/0jca5owr/gloden-clock-icon.svg" /></span> @readTime</div>
+                        }
+                    </div>
+                    <div class="share-artical-box">
+                        <div class="heading-box">
+                            <h3>Share this article</h3>
+                            <p>Help others discover this content</p>
+                        </div>
+                        <div class="social-media-box">
+                            <ul>
+                                <li class="social-icon">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=@articleUrl" target="_blank">
+                                        <img src="/media/inmnp0dm/facebook-2.svg"/>
+                                    </a>
+                                </li>
+                                <li class="social-icon">
+                                    <a href="https://www.instagram.com/direct/new/?text=@articleUrl" target="_blank">
+                                        <img src="/media/ycnbkmxw/instagram-2.svg"/>
+                                    </a>
+                                </li>
+                                <li class="social-icon">
+                                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=@articleUrl" target="_blank">
+                                        <img src="/media/35yddcxc/linkedin-2.svg"/>
+                                    </a>
+                                </li>
+                                <li class="social-icon">
+                                    <a href="javascript:void(0);" onclick="copyLink('@articleUrl')">
+                                        <img src="/media/fhkgetix/copylink.svg" />
+                                        <span class="linkcopedtext">Link copied!</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="content-box">
+                        @await Html.PartialAsync(Model.ThemeFolder + "/BlockContainers/BlockComponents", Model, new ViewDataDictionary(ViewData) { { "blockFieldAlias", "mainContent" }, { "pageLayout", Model.PageLayoutSettings.PageLayout } })
+                    </div>
+                    @if (Tags != null && Tags.Any())
+                    {
+                    <div class="tag-box">
+                        <h3 class="heading">Tags</h3>
+                        <div class="tags">
+                            @foreach (var tag in Tags)
+                            {
+                                <span class="tag">@tag</span>
+                            }
+                        </div>
+                    </div>
+                    }
+                </div>
+                <!--side column -->
+                <div class="content-col col-lg-4 col-12 blog-sidebar">
+                    <div class="table-of-content">
+                        <h3>Table of Contents</h3>
+                        <div id="content-list"></div>
+                    </div>
+                    @if(categories.Any())
+                    {
+                        <div class="categories-column">
+                        <h3>Categories</h3>
+                        @foreach (var cat in categories)
+                        {
+                            <span class="resource-categories">
+                                @cat.Name
+                            </span>
+                        }
+                        </div>
+                    }
+                <div class="relatedpostbox">
+                    <h3>Related Articles</h3>
+                    @if(relatedPosts.Any())
+                    {
+                        foreach (var relpost in relatedPosts)
+                        {
+                            var relcategories = relpost.Value<IEnumerable<IPublishedContent>>("postCategories");
+                            var reldateValue = relpost.Value<DateTime?>("postDate");
+                            var relformattedMonth = reldateValue?.ToString("MMMM", CultureInfo.InvariantCulture);
+                            var relformattedYear = reldateValue?.ToString("dd, yyyy", CultureInfo.InvariantCulture);
+                            var image = relpost.Value<IPublishedContent>("pageListingImage");
+                            var imageUrl = image?.Url() ?? "/images/placeholder.jpg";
+                            <a href="@relpost.Url()">
+                                <div class="post">
+                                <div class="image"><img src="@imageUrl"></div>
+                                
+                                <div class="content">
+                                    <ul>
+                                    @foreach (var cat in relcategories)
+                                    {
+                                        <li>@cat.Name</li>
+                                    }
+                                    </ul>
+                                    <h4>@relpost.Name</h4>
+                                    <p><span class="svgicon"><img src="/media/r0acsjoz/grey-calander-icon.svg" /></span> @relformattedMonth @relformattedYear</p>
+                                </div>
+                            </div>
+                            </a>
+                        }
+                        
+                    }
+                    <a class="viewall" href="@blogpage.Url()">View All Articles</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    @if (faqs != null && faqs.Any())
+    
+    {
+        <section class="faqs-section">
+            <div class="container">
+                <h3 class="heading">FAQs</h3>
+                <div class="faqs">
+                    @foreach (var item in faqs)
+                    {
+                        var content = item.Content;
+                        
+                        var heading = content.Value<string>("itemHeading");
+                        var text = content.Value<string>("repeaterText");
+                        
+                        <div class="faq-item">
+                            <h4 class="faq-heading">@heading</h4>
+                            <div class="faq-content">@Html.Raw(text)</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+    @if(otherpost.Any())
+    {
+        <section class="OtherBlogSection">
+            <div class="container">
+                <div class="other-blogs">
+                    <div class="heading-box">
+                        <h2 class="heading">You May Also Explore Our Other Blog Posts</h2>
+                        <p>Discover more insights and stories from Queen Elizabeth's School</p>
+                    </div>
+                    <div class="more-blogs">
+                    @foreach (var item in otherpost)
+                    {
+                        var itemTitle = item.Value<string>("pageListingHeading") ?? item.Name;
+                        var itemImage = item.Value<IPublishedContent>("pageListingImage");
+                        var itemImageUrl = itemImage?.Url() ?? "/images/placeholder.jpg";
+                        var itemDateValue = item.Value<DateTime?>("postDate");
+                        var itemFormattedMonth = itemDateValue?.ToString("MMMM", CultureInfo.InvariantCulture);
+                        var itemFormattedYear = itemDateValue?.ToString("dd, yyyy", CultureInfo.InvariantCulture);
+                        var itemReadTime = item.Value<string>("readingTime");
+                        var itemAuthors = item.Value<IEnumerable<IPublishedContent>>("postAuthor");
+                        var itemUrl = item.Url();
+                        var itemDescription = item.Value<string>("pageSummary");
+                        var itemCategoriesList = item.Value<IEnumerable<IPublishedContent>>("postCategories");
+                        
+                        var categoryNames = itemCategoriesList != null
+                        ? string.Join(",", itemCategoriesList.Select(x => x.Name.ToLower()))
+                        : "";
+                        
+                        
+                        <div class="news-item" data-category="@categoryNames">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="@itemImageUrl" alt="STEM Education" />
+                                    <span class="badge">@categoryNames</span>
+                                </div>
+                                
+                                <div class="card-content">
+                                    <h3>@Html.Raw(itemTitle)</h3>
+                                    <div class="descripiton">
+                                        @Html.Raw(itemDescription)
+                                    </div>
+                                    
+                                    <div class="divider"></div>
+                                    
+                                    <div class="meta">
+                                        @if (itemAuthors != null && itemAuthors.Any())
+                                        {
+                                            <div class="author"><span class="svgicon"><img src="/media/sa3e2pwd/goldenauthoricon.svg" /></span>   @string.Join(", ", itemAuthors.Select(x => x.Name))</div>
+                                        }
+                                        <div class="date"><span class="svgicon"><img src="/media/r0acsjoz/grey-calander-icon.svg" /></span> @itemFormattedMonth @itemFormattedYear</div>
+                                         @if(!string.IsNullOrWhiteSpace(readTime)){
+                                        <div class="read-time"><span class="svgicon"><img src="/media/gzbijnv4/grey-clock-icon.svg" /></span> @itemReadTime</div>
+                                        }
+                                    </div>
+                                    
+                                    <a href="@itemUrl" class="read-more">
+                                    Read More →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    </div>
+                    <a class="viewallbtn" href="@blogpage.Url()">View All Articles →</a>
+                </div>
+            </div>
+        </section>
+    }
+}
+
+
+
+
+@await Html.PartialAsync(Model.ThemeFolder + "/BlockContainers/BlockComponents", Model, new ViewDataDictionary(ViewData) { { "blockFieldAlias", "belowMainContent" }, { "pageLayout", Model.PageLayoutSettings.PageLayout } })
+
+@if (Model.PageLayoutSettings.PageLayout == "pageLayoutFull")
+{
+@await Html.PartialAsync(Model.ThemeFolder + "/BlockContainers/SitewidePods", Model)
+}
+
+<style>
+
+
+/*icone syling */
+
+.svgicon{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+.svgicon img{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 5px;
+}
+/*********************************************breadcrum styling******************************************/
+
+
+.breadcrum ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; 
+    font-family: Soleil;
+    margin-bottom: 20px;
+}
+
+
+.breadcrum li {
+    display: flex;
+    align-items: center;
+}
+
+
+.breadcrum li a {
+    text-decoration: none !important;
+    color: #6A7282 !important; 
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+.breadcrum li:last-child a {
+    color: #364153 !important; 
+    pointer-events: none;
+    font-weight: 400;
+}
+
+
+.breadcrum li:not(:last-child) a:hover {
+    color: #1e293b;
+    text-decoration: underline !important;
+}
+
+.breadcrum li:not(:last-child)::after {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid #6A7282 !important;
+    border-bottom: 1.5px solid #6A7282 !important;
+    transform: rotate(-45deg); 
+    margin: 0 15px;
+    flex-shrink: 0;
+}
+
+
+
+/******************************************layout styling***************************************/
+
+.blog-sidebar{
+    position: sticky;
+    top: 185px;
+    height: fit-content;
+}
+.blog-main{
+    position: relative;
+}
+.content-box .container{
+    padding: 0px !important;
+}
+
+h3{
+    font-size: 30px !important;
+}
+table , table th, table td{
+    border: none !important;
+}
+/***************************************Share this artical styling******************************/
+
+.share-artical-box {
+    margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  border-top: 1px solid #E5E7EB;
+  border-bottom: 1px solid #E5E7EB;
+  background: linear-gradient(90deg, #F9FAFB 0%, #FFFFFF 100%);
+
+}
+
+
+.heading-box h3 {
+  margin: 0;
+  color: #00142E;
+  font-family: Tinos;
+  font-weight: 400;
+  font-size: 18px !important;
+
+}
+
+.heading-box p {
+  margin: 5px 0 0;
+  color: #6A7282;
+  font-family: Soleil;
+  font-weight: 400;
+  font-size: 13px;
+
+}
+
+
+.social-media-box ul {
+  display: flex;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: relative;
+}
+
+.social-icon a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f3f3f3;
+  transition: all 0.3s ease;
+}
+
+.social-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.linkcopedtext{
+    position: absolute;
+    z-index: 9999;
+    display: none;
+    width: 100%;
+    top: 42px;
+    right: 0px;
+    text-align: end;
+    color: #6A7282;
+    font-family: Soleil;
+    font-weight: 400;
+    font-size: 13px;
+}
+.linkcopedtext.show{
+    display: inline-block;
+}
+
+
+/*************************************Heading style*************************************/
+
+.blog-categories{
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0px;
+}
+.blog-categories li{
+    padding: 5px 10px;
+    color: #fff;
+    font-family: Soleil;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+.blog-categories li:nth-child(odd){
+    background: #00142E;
+}
+.blog-categories li:nth-child(even){
+    background: #85754E;
+}
+.heading-col{
+    padding-bottom: 0px;
+}
+h1.heading.main.base-heading {
+color: #00142E;
+font-family: Tinos;
+font-weight: 400;
+font-size: 48px;
+margin: 15px 0px !important;
+}
+h2.heading , h3.heading{
+    font-family: Tinos;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 36px !important;
+    color:#00142E;
+    margin: 0px;
+}
+.meta-box {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    font-family: Soleil;
+    font-weight: 400;
+    font-size: 14px;
+}
+    /*****************************************table of contents stylng********************************/
+    
+    .table-of-content {
+        background-color: #00142E;
+        padding: 20px 25px;
+        width: 100%;
+        margin-bottom: 30px;
+        max-height: 60vh;
+        overflow-y: scroll;
+    }
+    
+    .table-of-content h3 {
+        color: #ffffff;
+        font-family: Tinos;
+        font-weight: 400;
+        font-size: 20px;
+        margin-top: 0px;
+    }
+    
+    
+    .toc-item {
+        margin-bottom: 16px;
+    }
+    
+    
+    .toc-item a {
+        text-decoration: none;
+        color: #FFFFFFCC !important; 
+        font-size: 15px;
+        line-height: 1.6;
+        transition: all 0.2s ease;
+    }
+    
+    .toc-item a:hover {
+        color: #ffffff;
+        padding-left: 5px;
+    }
+    
+    /**************************************categories box *****************************8*/
+    
+    .categories-column {
+        padding: 20px 25px;
+        border: 1px solid #E5E7EB;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    
+    .categories-column h3 {
+        margin-bottom: 15px;
+        color: #00142E;
+        font-family: Tinos;
+        font-weight: 400;
+        font-size: 20px;
+        margin-top: 0px;
+    
+    }
+    
+    .resource-categories {
+        display: inline-block;
+        background-color: #F3F4F6;
+        color: #364153;
+        font-size: 14px;
+        padding: 8px 14px;
+        margin: 6px 6px 0 0;
+        border-radius: 20px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .resource-categories:hover {
+        background-color: #dcdfe4;
+    }
+    
+    /*****************************************related Articles Desing**********************************/
+
+    .relatedpostbox {
+        background-color: ;
+        padding: 20px 25px;
+        border: 1px solid #E5E7EB;
+        max-width: 100%;
+    }
+    
+    .relatedpostbox h3 {
+        color: #00142E;
+        font-family: Tinos;
+        font-weight: 400;
+        font-size: 20px;
+        margin-top: 0px;
+    }
+    
+    .post {
+        display: flex;
+        gap: 15px;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #dcdfe4;
+    }
+    
+    .post .image img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 2px;
+    }
+    
+    .post .content {
+        flex: 1;
+    }
+    
+    .post .content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 6px 0;
+        display: flex;
+        gap: 8px;
+    }
+    
+    .post .content ul li {
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #85754E; 
+        font-weight: 600;
+    }
+    
+    .post .content h4 {
+        font-size: 15px;
+        color: #00142E;
+        margin: 4px 0 6px;
+        font-weight: 500;
+    }
+    
+    .post .content p {
+        font-size: 11px;
+        color: #99A1AF;
+        margin: 0;
+    }
+    
+
+    .relatedpostbox > a.viewall {
+        display: block;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 500;
+        color: #00142E !important;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+    
+
+    .relatedpostbox > a.viewall::after {
+        content: " →";
+    }
+
+
+/**************************************************More blog style**************************************/
+
+
+.OtherBlogSection{
+    background: #F9FAFB;
+    padding: 30px 0px;
+}
+
+.OtherBlogSection .heading-box h2{
+    font-family: Tinos;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 36px;
+    text-align: center;
+    color:#00142E;
+    margin: 0px;
+}
+.OtherBlogSection .heading-box p{
+    font-family: Soleil;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 16px;
+    text-align: center;
+    color: #4A5565;
+    margin-bottom: 0px;
+}
+
+.more-blogs {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-top: 40px;
+    
+}
+
+
+.card {
+  width: 380px;
+  background: #fff;
+  border-radius: 0px;
+  overflow: hidden;
+  border-top: 1.03px solid #E5E7EB;
+  min-height: 480px;
+}
+
+.card-image {
+  position: relative;
+}
+
+.card-image img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    height: 200px;
+}
+
+
+.badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    color: #00142E;
+    font-family: Soleil;
+font-weight: 600;
+font-size: 11.28px;
+text-transform: uppercase;
+
+}
+
+.card-content {
+  padding: 22px;
+}
+
+.card-content h3 {
+  font-size: 22px;
+  color: #00142E;
+  margin: 0px;
+  font-weight: 400;
+  font-family: Tinos;
+  
+}
+
+.card-content p {
+  font-size: 14px;
+  color: #4A5565;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 16px 0;
+}
+
+
+.meta {
+  font-size: 13px;
+  color: #99A1AF;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.meta .author{
+   flex: 0 0 100%; 
+   color: #6A7282;
+}
+.meta .date , .meta .read-time{
+   flex: 0 0 49%; 
+   
+}
+.meta .read-time{
+    text-align: end;
+}
+
+.read-more {
+  font-size: 14px;
+  color: #8b6b3f;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+.read-more:hover {
+  color: #5c4528;
+  transform: translateX(3px);
+}
+
+.viewallbtn{
+    background: #00142E;
+    color: #fff;
+    font-family: Soleil;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    padding: 7px 12px;
+    margin: auto;
+    margin-top: 20px;
+    display: block;
+    width: fit-content;
+}
+
+
+/********************************************************blogs tag styling***************************************/
+
+
+.tags {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 12px;    
+    padding: 20px 0px;
+}
+
+.tag {
+    background-color: #F3F4F6; 
+    color: #364153;           
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 2px;       
+    cursor: default;
+    display: inline-block;
+}
+
+
+/**************************************************blog FAQs styling****************************************/
+
+.faqs-section{
+    padding: 30px 0px 60px 0px;
+    background: #fff;
+}
+.faqs {
+    border: 1px solid #004682;
+    border-radius: 8px;
+    padding: 20px 30px;
+    margin: 20px 0px auto;
+    
+
+}
+
+
+.faq-item {
+    border-bottom: 1px solid #E1E4ED;
+    padding: 20px 0;
+}
+
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-heading {
+    margin: 0;
+    font-family: Inter;
+    font-weight: 600;
+    font-size: 16px;
+    color: #00142E;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+.faq-heading::after {
+    content: '+' !important;
+    font-size: 24px;
+    color: #1a2b3c;
+    font-weight: 300;
+    background: none;
+    display: inline-block !important;
+    
+}
+.faq-item.active .faq-heading::after {
+    content: '−' !important;
+}
+
+
+.faq-content {
+    height: 0;
+    overflow: hidden;
+    transition:all 0.3s ease-out;
+    margin-top: 0;
+    padding-bottom: 0;
+
+
+}
+.faq-item.active .faq-content {
+    height: fit-content;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+.faq-content p {
+    margin: 0;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 14px;
+    color: #00142E99;
+}
+
+/*************************responsive design****************************/
+@@media (max-width: 991px){
+    h1.heading.main.base-heading {
+        font-size: 28px;
+    }
+    h2.heading , h3.heading{
+        font-size: 24px !important;
+    }
+    p{
+        font-size: 13px;
+    }
+    .table-of-content{
+        display: none;
+    }
+    .more-blogs {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        }
+    .OtherBlogSection .card{
+        width: 100%;
+        min-height: 513px;
+    }
+    .meta .date, .meta .read-time{
+        flex: 0 0 47%;
+    }
+    .categories-column{
+    margin-top: 30px;
+    }
+
+}
+@@media (max-width: 768px){
+    .share-artical-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .meta-box {
+        flex-wrap: wrap;
+    }
+    .more-blogs {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        }
+    .OtherBlogSection .card{
+        min-height: 100%;
+    }
+    .breadcrum{
+    display: none;
+    }
+
+}
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const headings = document.querySelectorAll("h2");
+        const contentList = document.getElementById("content-list");
+        
+        headings.forEach((heading, index) => {
+            // Create an ID if not present
+            if (!heading.id) {
+                heading.id = "heading-" + index;
+            }
+            
+            // Create list item
+            const link = document.createElement("a");
+            link.href = "#" + heading.id;
+            link.textContent = heading.textContent;
+            
+            const listItem = document.createElement("div");
+            listItem.classList.add("toc-item");
+            listItem.appendChild(link);
+            
+            contentList.appendChild(listItem);
+        });
+    });
+    
+    document.querySelectorAll('.resource-categories').forEach(item => {
+        item.addEventListener('click', function () {
+            let category = this.innerText.trim();
+            
+            // convert to URL format: lowercase + spaces → +
+            let formattedCategory = category
+            .toLowerCase()
+            .replace(/\s+/g, '+');
+            
+            // redirect
+            window.location.href = `/blog/?type=${formattedCategory}`;
+        });
+    });
+    document.querySelectorAll('.faq-item').forEach(item => {
+    const heading = item.querySelector('.faq-heading');
+    
+    heading.addEventListener('click', () => {
+        const isOpen = item.classList.contains('active');
+
+        // Optional: Close all other open items first (Accordion behavior)
+        document.querySelectorAll('.faq-item').forEach(el => {
+            el.classList.remove('active');
+        });
+
+        // If the clicked item wasn't already open, open it
+        if (!isOpen) {
+            item.classList.add('active');
+        }
+    });
+});
+
+function copyLink(url) {
+    navigator.clipboard.writeText(url).then(function () {
+        const el = document.querySelector('.linkcopedtext');
+        
+        el.classList.add('show');
+
+        setTimeout(() => {
+            el.classList.remove('show');
+        }, 3000);
+    });
+}
+
+
+const categories = document.querySelector('.categories-column');
+const shareBox = document.querySelector('.share-artical-box');
+
+if (categories && shareBox) {
+    const parent = shareBox.parentNode;
+    const originalNext = categories.nextSibling;
+
+    function handleMove() {
+        if (window.innerWidth <= 991) {
+            if (categories !== shareBox.nextElementSibling) {
+                parent.insertBefore(categories, shareBox.nextSibling);
+            }
+        } else {
+            if (categories.nextSibling !== originalNext) {
+                parent.insertBefore(categories, originalNext);
+            }
+        }
+    }
+
+    // run once
+    handleMove();
+
+    // optimized resize (no constant firing)
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(handleMove, 150);
+    });
+}
+
+</script>
