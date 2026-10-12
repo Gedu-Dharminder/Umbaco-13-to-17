@@ -116,7 +116,7 @@
             if (item?.ContentUdi != null)
             {
                 var itemCommonBlockSettings = (IUsn_Cmp_CommonBlockSettings)item.Settings;
-                string anchor = _siteBuilderService.MakeAnchorSafe(itemCommonBlockSettings.AnchorName);
+                string anchor = _siteBuilderService.MakeAnchorSafe(itemCommonBlockSettings.Value<string>("anchorName"));
 
                 if (currentRow > totalFullRows)
                 {

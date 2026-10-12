@@ -12,7 +12,7 @@
     var uniqueSettings = (IUsn_Cmp_TextImage_Settings)Model.BlockSettings;
     var animateSettings = (IUsn_Cmp_AnimateSettings)Model.BlockSettings;
     var itemCommonBlockSettings = (IUsn_Cmp_CommonBlockSettings)Model.BlockSettings;
-    string anchor = _siteBuilderService.MakeAnchorSafe(itemCommonBlockSettings.AnchorName);
+    string anchor = _siteBuilderService.MakeAnchorSafe(itemCommonBlockSettings.Value<string>("anchorName"));
 
     string backgroundColorLabel = ViewData["backgroundColorLabel"].ToString();
     bool disableModalLinks = Convert.ToBoolean(ViewData["disableModalLinks"]);

@@ -45,7 +45,7 @@
                     var itemContent = (Usn_Cbi_DataListItem)item.Content;
                     var itemMinSettings = (IUsn_Cmp_CommonBlockSettings)item.Settings;
 
-                    string anchor = _siteBuilderService.MakeAnchorSafe(itemMinSettings.AnchorName);
+                    string anchor = _siteBuilderService.MakeAnchorSafe(itemMinSettings.Value<string>("anchorName"));
 
                     <!-- Item -->
                     <div class="item @itemsClass item_data-list col-12 @animation.AnimationClass @itemMinSettings.CustomClasses" data-os-animation="@animation.AnimationStyle" data-os-animation-delay="@animation.AnimationDelay" data-os-animation-duration="@animation.AnimationDuration" @Html.Raw(anchor)>

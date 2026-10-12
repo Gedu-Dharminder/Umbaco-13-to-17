@@ -44,7 +44,7 @@
                         var itemContent = (Usn_Cbi_AccordionTabItem)item.Content;
                         var itemSettings = (Usn_Cbis_AccordionTabItem)item.Settings;
 
-                        string anchor = _siteBuilderService.MakeAnchorSafe(itemSettings.AnchorName);
+                        string anchor = _siteBuilderService.MakeAnchorSafe(itemSettings.Value<string>("anchorName"));
 
                         bool openAccordion = _siteBuilderService.GetAccordionTabOpen(itemCount, itemTotal, uniqueSettings.AccordionOptions);
                         string ariaTag = openAccordion ? "aria-expanded=\"true\"" : "aria-expanded=\"false\"";
@@ -77,7 +77,7 @@
                                 var itemContent = (Usn_Cbi_AccordionTabItem)item.Content;
                                 var itemSettings = (Usn_Cbis_AccordionTabItem)item.Settings;
 
-                                string anchor = _siteBuilderService.MakeAnchorSafe(itemSettings.AnchorName);
+                                string anchor = _siteBuilderService.MakeAnchorSafe(itemSettings.Value<string>("anchorName"));
 
                                 <li class="tab @itemSettings.CustomClasses" role="presentation" @Html.Raw(anchor)>
                                     <a class="nav-item nav-button-link nav-link @(itemCount == 1 ? "active" : "")" id="nav_tab_@(uniqueID)_@itemCount" data-bs-toggle="tab" href="#nav_@(uniqueID)_@itemCount" role="tab" aria-controls="nav_@(uniqueID)_@itemCount" aria-selected="@(itemCount == 1 ? "true" : "false")">

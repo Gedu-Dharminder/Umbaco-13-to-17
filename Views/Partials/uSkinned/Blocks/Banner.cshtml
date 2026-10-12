@@ -43,7 +43,7 @@
                     var itemContent = (Usn_Cbi_Banner)banner.Content;
                     var itemSettings = (Usn_Cbis_Banner)banner.Settings;
 
-                    string anchor = _siteBuilderService.MakeAnchorSafe(itemSettings.AnchorName);
+                    string anchor = _siteBuilderService.MakeAnchorSafe(itemSettings.Value<string>("anchorName"));
 
                     AnimationSettings itemAnimation = _siteBuilderService.GetAnimationSettings(itemSettings.Animate, itemSettings.AnimationDelay, itemSettings.AnimationDuration, itemSettings.AnimationStyle);
 

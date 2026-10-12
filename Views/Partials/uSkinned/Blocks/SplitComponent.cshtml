@@ -31,7 +31,7 @@
                 {
                     var pageComponent = new SiteBuilderBlock(Model.BaseModel, splitSection1);
                     var splitCommonSettings = (IUsn_Cmp_SplitCommonSettings)splitSection1.Settings;
-                    string anchor1 = _siteBuilderService.MakeAnchorSafe(splitCommonSettings.AnchorName);
+                    string anchor1 = _siteBuilderService.MakeAnchorSafe(splitCommonSettings.Value<string>("anchorName"));
 
                     var animateSettings = splitSection1.Settings as IUsn_Cmp_AnimateSettings;
                     var introOutro = splitSection1.Content as IUsn_Cmp_IntroOutro;
@@ -61,7 +61,7 @@
                 {
                     var pageComponent = new SiteBuilderBlock(Model.BaseModel, splitSection2);
                     var splitCommonSettings = (IUsn_Cmp_SplitCommonSettings)splitSection2.Settings;
-                    string anchor2 = _siteBuilderService.MakeAnchorSafe(splitCommonSettings.AnchorName);
+                    string anchor2 = _siteBuilderService.MakeAnchorSafe(splitCommonSettings.Value<string>("anchorName"));
 
                     var animateSettings = splitSection2.Settings as IUsn_Cmp_AnimateSettings;
                     var introOutro = splitSection2.Content as IUsn_Cmp_IntroOutro;

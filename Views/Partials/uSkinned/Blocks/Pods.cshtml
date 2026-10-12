@@ -42,7 +42,7 @@
                     else
                     {
                         var itemCommonBlockSettings = (IUsn_Cmp_CommonBlockSettings)item.Settings;
-                        string anchor = _siteBuilderService.MakeAnchorSafe(itemCommonBlockSettings.AnchorName);
+                        string anchor = _siteBuilderService.MakeAnchorSafe(itemCommonBlockSettings.Value<string>("anchorName"));
                         string podStyle = "usn_pod_" + _siteBuilderService.GetBlockStyleName(podItem.BlockContent.ContentType.Alias);
 
                         <div class="item @podStyle @carouselSettings.ItemsClass @itemCommonBlockSettings.CustomClasses" @Html.Raw(anchor)>

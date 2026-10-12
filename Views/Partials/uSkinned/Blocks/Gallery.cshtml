@@ -52,7 +52,7 @@
 
                 var itemMinSettings = (IUsn_Cmp_CommonBlockSettings)galleryItem.Settings;
 
-                string anchor = _siteBuilderService.MakeAnchorSafe(itemMinSettings.AnchorName);
+                string anchor = _siteBuilderService.MakeAnchorSafe(itemMinSettings.Value<string>("anchorName"));
 
                 if (galleryItem.Content.ContentType.Alias == Usn_Cbi_GalleryMediaFolder.ModelTypeAlias)
                 {

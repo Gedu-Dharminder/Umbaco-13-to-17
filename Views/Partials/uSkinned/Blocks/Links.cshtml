@@ -44,7 +44,7 @@
                     var itemContent = (Usn_Cbi_Link)item.Content;
                     var itemCommonBlockSettings = (IUsn_Cmp_CommonBlockSettings)item.Settings;
 
-                    string anchor = _siteBuilderService.MakeAnchorSafe(itemCommonBlockSettings.AnchorName);
+                    string anchor = _siteBuilderService.MakeAnchorSafe(itemCommonBlockSettings.Value<string>("anchorName"));
 
                     if (_siteBuilderService.DisplayLink(itemContent.Link, disableModalLinks))
                     {

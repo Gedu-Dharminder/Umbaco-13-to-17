@@ -35,7 +35,7 @@
     string backgroundColorClass = backgroundSettings != null ? _siteBuilderService.GetBackgroundColorClass(backgroundColorSortOrder, "content", websiteStyle) : "base-bg base-bg-solid";
 
     //Properties included with all components
-    string anchor = _siteBuilderService.MakeAnchorSafe(minSettings.AnchorName);
+    string anchor = _siteBuilderService.MakeAnchorSafe(Model.BlockSettings.Value<string>("anchorName"));
     anchor = !string.IsNullOrEmpty(anchor) ? $" id=\"{anchor}\"" : String.Empty;
     string additionalStyles = !string.IsNullOrEmpty(minSettings?.ComponentStyles) ? minSettings.ComponentStyles.ToString().Replace(",", " ") : String.Empty;
 
